@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק הצבעים 2.0 🎨</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --background: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            user-select: none;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2 { margin-top: 0; color: var(--text-main); font-size: 1.5rem; }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+
+        .timer-container {
+            width: 100%;
+            height: 6px;
+            background: #dfe6e9;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00b894, #00cec9);
+            width: 100%;
+            transition: width 0.1s linear;
+        }
+
+        #word-display {
+            font-size: 80px;
+            font-weight: 800;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            cursor: default;
+        }
+
+        #input-area {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            border: 2px solid #dfe6e9;
+            border-radius: 12px;
+            outline: none;
+            text-align: center;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            background: #fafafa;
+        }
+
+        #input-area:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+
+        /* אנימציות */
+        .shake { animation: shake 0.5s; border-color: #ff7675 !important; }
+        .pop { animation: pop 0.2s; }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* מסך סיום */
+        #overlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .start-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--card-bg);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        .instructions {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-bottom: 20px;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        
+        .hint {
+            font-size: 0.8rem;
+            color: #b2bec3;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="stats-bar">
+        <span id="score">ניקוד: 0</span>
+        <span id="high-score">שיא: 0</span>
+    </div>
+    
+    <div class="timer-container">
+        <div id="timer-bar" class="timer-fill"></div>
+    </div>
+
+    <div id="word-display">מוכן?</div>
+    
+    <input type="text" id="input-area" placeholder="הקלד את צבע המילה..." autocomplete="off" disabled>
+    <div class="hint">טיפ: לא צריך ללחוץ Enter, רק לכתוב נכון!</div>
+
+    <div id="start-screen" class="start-screen">
+        <h1>משחק הצבעים 🎨</h1>
+        <p class="instructions">
+            המטרה: להקליד את <b>הצבע</b> של המילה, ולא את מה שכתוב.<br>
+            למשל, אם כתוב "כחול" בצבע אדום - כתוב <b>"אדום"</b>.
+        </p>
+        <button class="btn" onclick="startGame()">התחל משחק</button>
+    </div>
+
+    <div id="overlay">
+        <h2>נגמר הזמן! ⏰</h2>
+        <p style="font-size: 1.5rem; margin: 10px 0;">הניקוד שלך: <b id="final-score">0</b></p>
+        <button class="btn" onclick="startGame()">נסה שוב</button>
+    </div>
+</div>
+
+<script>
+    // הגדרת הצבעים - המפתח ללוגיקה תקינה
+    const colorsData = [
+        { name: 'אדום', hex: '#ef5350' },
+        { name: 'כחול', hex: '#42a5f5' },
+        { name: 'ירוק', hex: '#66bb6a' },
+        { name: 'צהוב', hex: '#fdd835' }, // צהוב כהה יותר לקריאות
+        { name: 'סגול', hex: '#ab47bc' },
+        { name: 'ורוד', hex: '#ff4081' },
+        { name: 'כתום', hex: '#ffa726' },
+        { name: 'שחור', hex: '#2d3436' }
+    ];
+
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval;
+    let currentTargetColorName = ''; // הצבע שאנחנו מצפים שהמשתמש יקליד
+    let isPlaying = false;
+    let highScore = localStorage.getItem('colorGameHighScore') || 0;
+
+    // אלמנטים מה-DOM
+    const wordDisplay = document.getElementById('word-display');
+    const inputArea = document.getElementById('input-area');
+    const scoreDisplay = document.getElementById('score');
+    const highScoreDisplay = document.getElementById('high-score');
+    const timerBar = document.getElementById('timer-bar');
+    const overlay = document.getElementById('overlay');
+    const startScreen = document.getElementById('start-screen');
+    const finalScoreDisplay = document.getElementById('final-score');
+
+    // אתחול ראשוני
+    highScoreDisplay.textContent = `שיא: ${highScore}`;
+
+    function startGame() {
+        // איפוס משתנים
+        score = 0;
+        timeLeft = 30;
+        isPlaying = true;
+        scoreDisplay.textContent = "ניקוד: 0";
+        overlay.style.display = 'none';
+        startScreen.style.display = 'none';
+        inputArea.value = '';
+        inputArea.disabled = false;
+        inputArea.focus();
+        
+        updateTimerVisuals();
+        nextRound();
+
+        // התחלת הטיימר
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerVisuals();
+            
+            if (timeLeft <= 0) {
+                endGame();
+            }
+        }, 1000);
+    }
+
+    function updateTimerVisuals() {
+        const percentage = (timeLeft / 30) * 100;
+        timerBar.style.width = percentage + "%";
+        
+        // שינוי צבע הבר כשהזמן נגמר
+        if (percentage < 20) {
+            timerBar.style.background = "#ff7675";
+        } else {
+            timerBar.style.background = "linear-gradient(90deg, #00b894, #00cec9)";
+        }
+    }
+
+    function nextRound() {
+        // בחירת מילה רנדומלית (הטקסט שמופיע)
+        const randomTextObj = colorsData[Math.floor(Math.random() * colorsData.length)];
+        
+        // בחירת צבע רנדומלי (הצבע הויזואלי - התשובה הנכונה)
+        const randomColorObj = colorsData[Math.floor(Math.random() * colorsData.length)];
+        
+        // הצגה על המסך
+        wordDisplay.textContent = randomTextObj.name;
+        wordDisplay.style.color = randomColorObj.hex;
+        
+        // שמירת התשובה הנכונה
+        currentTargetColorName = randomColorObj.name;
+        
+        // אנימציה קטנה של החלפה
+        wordDisplay.classList.remove('pop');
+        void wordDisplay.offsetWidth; // טריק לאתחול האנימציה
+        wordDisplay.classList.add('pop');
+    }
+
+    function checkInput() {
+        if (!isPlaying) return;
+
+        const userInput = inputArea.value.trim().toLowerCase();
+        
+        // בדיקה אם המשתמש הקליד את המילה הנכונה
+        if (userInput === currentTargetColorName) {
+            // תשובה נכונה!
+            score++;
+            scoreDisplay.textContent = "ניקוד: " + score;
+            inputArea.value = ''; // ניקוי מהיר
+            nextRound();
+        }
+    }
+
+    function endGame() {
+        isPlaying = false;
+        clearInterval(timerInterval);
+        inputArea.disabled = true;
+        
+        // עדכון שיא
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('colorGameHighScore', highScore);
+            highScoreDisplay.textContent = `שיא: ${highScore}`;
+        }
+
+        finalScoreDisplay.textContent = score;
+        overlay.style.display = 'flex'; // שימוש ב-flex כדי למרכז
+    }
+
+    // מאזין לאירועים - בודק כל הקשה
+    inputArea.addEventListener('input', checkInput);
+
+    // מניעת רמאות קלה (הדבקה) - אופציונלי
+    inputArea.addEventListener('paste', (e) => e.preventDefault());
+
+</script>
+
+</body>
+</html>
