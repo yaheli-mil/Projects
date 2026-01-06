@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משחק הצבעים - גרסה קלאסית</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 0; }
+    h2 { font-size: 24px; color: #333; margin-bottom: 10px; }
+    #score, #time-left { font-size: 20px; color: #555; margin-bottom: 10px; }
+    #color-display { font-size: 40px; margin-bottom: 20px; font-weight: bold; }
+    #color-input { padding: 10px; font-size: 18px; border: 2px solid #ddd; border-radius: 5px; margin-bottom: 20px; outline: none; }
+    #color-input:focus { border-color: #5a8dee; }
+    #overlay { display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); }
+    #popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+
+    /* כפתור המעבר לגרסה החדשה - צד ימין למטה */
+    .switch-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #5a8dee;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: background 0.3s;
+        z-index: 100;
+    }
+    .switch-btn:hover {
+        background-color: #4a76c9;
+    }
+</style>
+</head>
+<body>
+
+<a href="../color-game" class="switch-btn">עבור לגרסה החדשה ✨</a>
+
+<h2>!הקלידו את צבע המילים, ולא את טקסט המילה</h2>
+<h3 id="score">כדי להתחיל Enter הקישו</h3>
+<h3 id="time-left">זמן שנשאר: 30</h3>
+<div id="color-display"></div>
+<input type="text" id="color-input">
+
+<div id="overlay">
+    <div id="popup">
+        <p id="popup-text"></p>
+        <button onclick="resetGame()">שחקו שוב</button>
+    </div>
+</div>
+
+<script>
+// --- השינוי כאן ---
+// בדיקה האם המשתמש כבר ראה את ההודעה בעבר
+if (!localStorage.getItem('legacyVersionSeen')) {
+    alert("שימו לב: זו הגרסה הישנה שנכתבה ידנית (בלי בינה מלאכותית). המשחק כולל באגים ומוצג כאן למטרות היסטוריה בלבד.");
+    // שמירת אינדיקציה שהמשתמש ראה את ההודעה
+    localStorage.setItem('legacyVersionSeen', 'true');
+}
+// ------------------
+
+var colours = ['אדום', 'כחול', 'ירוק', 'צהוב', 'סגול', 'ורוד', 'כתום'];
+var colorsStyle = ['#ff0000', '#0000ff', '#008000', '#ffff00', '#800080', '#ff69b4', '#ffa500'];
+var score = 0;
+var timeleft = 30;
+var timer = null;
+var gameStarted = false;
+
+function startGame(event) {
+  if (!gameStarted && event.keyCode === 13) {
+    gameStarted = true;
+    countdown();
+    nextColour();
+  }
+}
+
+function nextColour() {
+  if (timeleft > 0) {
+    var colorDisplay = document.getElementById('color-display');
+    var colorInput = document.getElementById('color-input');
+
+    colorInput.focus();
+
+    var randomIndex = Math.floor(Math.random() * colours.length);
+    var textColourIndex = Math.floor(Math.random() * colorsStyle.length);
+
+    colorDisplay.textContent = colours[randomIndex];
+    colorDisplay.style.color = colorsStyle[textColourIndex];
+
+    colorInput.value = '';
+  }
+}
+
+function countdown() {
+  var timeLabel = document.getElementById('time-left');
+  if (timeleft > 0) {
+    timeleft--;
+    timeLabel.textContent = "זמן שנשאר: " + timeleft;
+    timer = setTimeout(countdown, 1000);
+  } else {
+    showPopup();
+  }
+}
+
+function handleKeyPress(event) {
+  var colorInput = document.getElementById('color-input');
+  var colorDisplay = document.getElementById('color-display');
+  if (gameStarted && event.keyCode === 13) {
+    var colorIndex = colours.indexOf(colorDisplay.textContent);
+    if (colorIndex !== -1 && colorInput.value.toLowerCase() === colorsStyle[colorIndex].toLowerCase()) {
+      score++;
+    }
+    nextColour();
+    var scoreLabel = document.getElementById('score');
+    scoreLabel.textContent = "ניקוד: " + score;
+  }
+}
+
+function showPopup() {
+  var popupText = document.getElementById('popup-text');
+  popupText.innerHTML = "הניקוד שלכם הוא: " + score + "<br>!כל הכבוד";
+  var overlay = document.getElementById('overlay');
+  overlay.style.display = 'block';
+}
+
+function resetGame() {
+  var overlay = document.getElementById('overlay');
+  overlay.style.display = 'none';
+  score = 0;
+  timeleft = 30;
+  gameStarted = false;
+  var scoreLabel = document.getElementById('score');
+  scoreLabel.textContent = "כדי להתחיל Enter הקישו";
+  var timeLabel = document.getElementById('time-left');
+  timeLabel.textContent = "זמן שנשאר: " + timeleft;
+}
+
+document.getElementById('color-input').addEventListener('keypress', handleKeyPress);
+document.addEventListener('keypress', startGame);
+
+resetGame();
+</script>
+
+</body>
+</html>

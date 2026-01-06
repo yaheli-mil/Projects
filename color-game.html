@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק הצבעים 🎨</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Bona+Nova:wght@700&family=Rubik+Bubbles&family=Rubik+Glitch&family=Rubik+Wet+Paint&family=Secular+One&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --background: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            user-select: none;
+        }
+
+        .old-version-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            color: #636e72;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border: 1px solid #dfe6e9;
+            z-index: 100;
+        }
+
+        .old-version-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            color: var(--primary);
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2 { margin-top: 0; color: var(--text-main); font-size: 1.5rem; }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+
+        .timer-container {
+            width: 100%;
+            height: 8px;
+            background: #dfe6e9;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+            padding: 2px;
+            margin-left: -2px;
+            margin-right: -2px;
+            box-sizing: content-box;
+        }
+
+        .timer-fill {
+            height: 100%;
+            width: 100%;
+            border-radius: 4px;
+            transition: width 0.2s linear, background 0.3s, box-shadow 0.3s, filter 0.3s;
+        }
+
+        .timer-add-time-glow {
+            box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8), 0 0 8px rgba(108, 92, 231, 0.5);
+            filter: brightness(1.3);
+            z-index: 2;
+        }
+
+        .timer-blink {
+            animation: pulse-red 0.5s infinite alternate;
+        }
+
+        @keyframes pulse-red {
+            from { opacity: 1; box-shadow: 0 0 5px #ff7675; }
+            to { opacity: 0.6; box-shadow: 0 0 15px #d63031; }
+        }
+
+        #word-container {
+            margin: 20px 0;
+            min-height: 120px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #word-display {
+            font-size: 80px;
+            font-weight: 800; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            cursor: default;
+            direction: rtl;
+            line-height: 1.2;
+        }
+
+        #input-area {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            border: 2px solid #dfe6e9;
+            border-radius: 12px;
+            outline: none;
+            text-align: center;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            background: #fafafa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        #input-area:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+
+        .hint {
+            font-size: 0.8rem;
+            color: #b2bec3;
+            margin-top: 10px;
+        }
+
+        .pop { animation: pop 0.2s; }
+        
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #overlay {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .start-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--card-bg);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .instructions {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-bottom: 10px;
+            max-width: 90%;
+            line-height: 1.5;
+        }
+
+        .instructions-note {
+            font-size: 0.95rem;
+            color: #2d3436;
+            margin-bottom: 20px;
+            max-width: 90%;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<a href="color-game/old" class="old-version-btn">חזרה לגרסה הישנה ⏪</a>
+
+<div class="container">
+    <div class="stats-bar">
+        <span id="score">ניקוד: 0</span>
+        <span id="high-score">שיא: 0</span>
+    </div>
+    
+    <div class="timer-container">
+        <div id="timer-bar" class="timer-fill"></div>
+    </div>
+
+    <div id="word-container">
+        <div id="word-display">מוכן?</div>
+    </div>
+    
+    <input type="text" id="input-area" placeholder="הקלד את צבע המילה..." autocomplete="off" disabled>
+    <div class="hint">אין צורך ללחוץ ENTER - התשובה נבדקת אוטומטית</div>
+
+    <div id="start-screen" class="start-screen">
+        <h1>משחק הצבעים 🎨</h1>
+        <p class="instructions">
+            המטרה: להקליד את <b>הצבע</b> שהמילה צבועה בו.
+        </p>
+        <p class="instructions-note">
+            שימו לב: כל אות צבועה בגוון שונה, והפונטים מתחלפים!
+        </p>
+        <button class="btn" onclick="startGame()">התחל משחק</button>
+    </div>
+
+    <div id="overlay">
+        <h2>נגמר הזמן! ⏰</h2>
+        <p style="font-size: 1.5rem; margin: 10px 0;">הניקוד שלך: <b id="final-score">0</b></p>
+        <button class="btn" onclick="startGame()">נסה שוב</button>
+    </div>
+</div>
+
+<script>
+    const colorPalettes = {
+        'אדום': ['#FF0000', '#B71C1C', '#FF5252', '#D32F2F', '#E53935', '#FF1744', '#C62828'],
+        'כחול': ['#2980b9', '#3498db', '#0984e3', '#1e3799', '#4a69bd', '#0c2461', '#1976D2'],
+        'ירוק': ['#27ae60', '#2ecc71', '#00b894', '#006266', '#10ac84', '#388E3C', '#43A047'],
+        'צהוב': ['#f1c40f', '#f39c12', '#fbc531', '#e1b12c', '#FBC02D', '#FFD600'],
+        'סגול': ['#8e44ad', '#9b59b6', '#8c7ae6', '#9c88ff', '#6D214F', '#7B1FA2', '#AA00FF'],
+        'ורוד': ['#e84393', '#fd79a8', '#e91e63', '#ff4081', '#C2185B', '#F50057'],
+        'כתום': ['#e67e22', '#d35400', '#fa8231', '#e55039', '#F57C00', '#EF6C00'],
+        'שחור': ['#2d3436', '#000000', '#1e272e', '#2C3A47', '#353b48'],
+        'חום':  ['#795548', '#5D4037', '#8D6E63', '#4E342E', '#6D4C41', '#3E2723'],
+        'אפור': ['#636e72', '#b2bec3', '#757575', '#616161', '#9E9E9E'],
+        'תכלת': ['#87CEEB', '#00BFFF', '#4FC3F7', '#29B6F6', '#81D4FA', '#03A9F4']
+    };
+
+    const fonts = [
+        '"Rubik Wet Paint", cursive',
+        '"Amatic SC", cursive',
+        '"Rubik Glitch", cursive',
+        '"Secular One", sans-serif',
+        '"Varela Round", sans-serif',
+        '"Bona Nova", serif',
+        '"Rubik Bubbles", cursive',
+        'Arial, sans-serif'
+    ];
+
+    let score = 0;
+    const MAX_TIME = 30;
+    let timeLeft = MAX_TIME;
+    let timerTimeout;
+    let currentTargetColorName = '';
+    let isPlaying = false;
+    let highScore = localStorage.getItem('colorGameHighScoreV2') || 0;
+
+    const wordDisplay = document.getElementById('word-display');
+    const inputArea = document.getElementById('input-area');
+    const scoreDisplay = document.getElementById('score');
+    const highScoreDisplay = document.getElementById('high-score');
+    const timerBar = document.getElementById('timer-bar');
+    const overlay = document.getElementById('overlay');
+    const startScreen = document.getElementById('start-screen');
+    const finalScoreDisplay = document.getElementById('final-score');
+
+    highScoreDisplay.textContent = `שיא: ${highScore}`;
+
+    function startGame() {
+        score = 0;
+        timeLeft = MAX_TIME;
+        isPlaying = true;
+        scoreDisplay.textContent = "ניקוד: 0";
+        overlay.style.display = 'none';
+        startScreen.style.display = 'none';
+        inputArea.value = '';
+        inputArea.disabled = false;
+        inputArea.focus();
+        
+        updateTimerVisuals();
+        nextRound();
+
+        if (timerTimeout) clearTimeout(timerTimeout);
+        runTimer();
+    }
+
+    function runTimer() {
+        if (!isPlaying) return;
+
+        let speed = Math.max(250, 1000 - (score * 25));
+
+        timerTimeout = setTimeout(() => {
+            timeLeft--;
+            updateTimerVisuals();
+            
+            if (timeLeft <= 0) {
+                endGame();
+            } else {
+                runTimer();
+            }
+        }, speed);
+    }
+
+    function updateTimerVisuals() {
+        const percentage = Math.min((timeLeft / MAX_TIME) * 100, 100);
+        timerBar.style.width = percentage + "%";
+        
+        timerBar.classList.remove('timer-blink');
+
+        if (percentage > 50) {
+            timerBar.style.background = "linear-gradient(90deg, #00b894, #00cec9)";
+        } else if (percentage > 20) {
+            timerBar.style.background = "linear-gradient(90deg, #f1c40f, #f39c12)";
+        } else {
+            timerBar.style.background = "#d63031";
+            if (!timerBar.classList.contains('timer-add-time-glow')) {
+                timerBar.classList.add('timer-blink');
+            }
+        }
+    }
+
+    function triggerTimeAddedEffect() {
+        timerBar.classList.remove('timer-blink');
+        timerBar.classList.add('timer-add-time-glow');
+        
+        setTimeout(() => {
+            timerBar.classList.remove('timer-add-time-glow');
+            updateTimerVisuals();
+        }, 300);
+    }
+
+    function nextRound() {
+        const colorNames = Object.keys(colorPalettes);
+        const textName = colorNames[Math.floor(Math.random() * colorNames.length)];
+        const colorName = colorNames[Math.floor(Math.random() * colorNames.length)];
+        
+        const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+        wordDisplay.style.fontFamily = randomFont;
+
+        if (randomFont.includes('Amatic')) {
+            wordDisplay.style.fontSize = '110px';
+        } else {
+            wordDisplay.style.fontSize = '80px';
+        }
+
+        let htmlContent = '';
+        const shades = colorPalettes[colorName];
+
+        for (let char of textName) {
+            const randomShade = shades[Math.floor(Math.random() * shades.length)];
+            htmlContent += `<span style="color: ${randomShade}">${char}</span>`;
+        }
+
+        wordDisplay.innerHTML = htmlContent;
+        currentTargetColorName = colorName;
+        
+        wordDisplay.classList.remove('pop');
+        void wordDisplay.offsetWidth; 
+        wordDisplay.classList.add('pop');
+    }
+
+    function checkInput() {
+        if (!isPlaying) return;
+        const userInput = inputArea.value.trim().toLowerCase();
+        
+        if (userInput === currentTargetColorName) {
+            score++;
+            scoreDisplay.textContent = "ניקוד: " + score;
+            
+            timeLeft += 2;
+            if (timeLeft > MAX_TIME) timeLeft = MAX_TIME; 
+            
+            triggerTimeAddedEffect();
+            
+            updateTimerVisuals();
+
+            inputArea.value = '';
+            nextRound();
+        }
+    }
+
+    function endGame() {
+        isPlaying = false;
+        clearTimeout(timerTimeout);
+        inputArea.disabled = true;
+        timerBar.classList.remove('timer-blink');
+        timerBar.classList.remove('timer-add-time-glow');
+        
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('colorGameHighScoreV2', highScore);
+            highScoreDisplay.textContent = `שיא: ${highScore}`;
+        }
+
+        finalScoreDisplay.textContent = score;
+        overlay.style.display = 'flex';
+    }
+
+    inputArea.addEventListener('input', checkInput);
+    inputArea.addEventListener('paste', (e) => e.preventDefault());
+</script>
+
+</body>
+</html>
