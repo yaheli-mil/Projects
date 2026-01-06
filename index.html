@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>יהלי מילרמן | תיק עבודות</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            /* שימוש בפונט החדש */
+            font-family: 'Rubik', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 30px 0; /* קצת יותר מרווח */
+            text-align: center;
+            border-bottom: 5px solid #004494;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700; /* מודגש יותר */
+            letter-spacing: -1px;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.3rem;
+            font-weight: 300; /* דק יותר לכותרת משנה */
+            opacity: 0.9;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px; /* פינות יותר עגולות */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        h2.section-title {
+            color: #0056b3;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-top: 0;
+            font-weight: 700;
+        }
+
+        .project-item {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #eef0f2;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: transform 0.2s;
+        }
+
+        .project-item:hover {
+            transform: translateY(-3px); /* אפקט ריחוף עדין */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-color: #dbe4ef;
+        }
+
+        .project-icon {
+            font-size: 45px;
+            margin-left: 25px;
+            background: #f0f4f8;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .project-info {
+            flex-grow: 1;
+        }
+
+        .project-info h3 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 1.4rem;
+        }
+
+        .project-info p {
+            margin: 0 0 20px 0;
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #0056b3; /* תואם לכותרת */
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 50px; /* כפתור עגול יותר */
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #003d82;
+            box-shadow: 0 4px 10px rgba(0, 86, 179, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>יהלי מילרמן</h1>
+        <p>אתר פרויקטים</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">הפרויקטים שלי</h2>
+        
+        <div class="project-item">
+            <div class="project-icon">🎨</div>
+            <div class="project-info">
+                <h3>משחק הצבעים 2.0</h3>
+                <p>משחק אינטראקטיבי הבוחן מהירות תגובה. המטרה היא להקליד את צבע המילה ולא את הטקסט.</p>
+                <a href="./color-game" class="btn">למשחק &larr;</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <h2 class="section-title">קצת עליי</h2>
+            <p>שלום, אני יהלי. זהו האתר האישי שלי בו אני מציג פרויקטים ומשחקים שאני מפתח.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 יהלי מילרמן</p>
+    </footer>
+
+</body>
+</html>
