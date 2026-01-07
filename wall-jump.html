@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wall Jump Blitz</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            overflow: hidden; /* מונע גלילה */
+            font-family: 'Arial', sans-serif;
+            touch-action: manipulation; /* משפר תגובה בלחיצה בטלפון */
+        }
+
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, #2b2b2b, #000000);
+        }
+
+        /* הקירות */
+        .wall {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background-color: #444;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+        #left-wall { left: 0; }
+        #right-wall { right: 0; }
+
+        /* השחקן */
+        #player {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ff0055;
+            bottom: 100px;
+            left: 20px; /* מתחיל בצד שמאל */
+            border-radius: 5px;
+            box-shadow: 0 0 15px #ff0055;
+            transition: left 0.2s ease-in-out; /* אנימציה חלקה במעבר צד */
+        }
+
+        /* מכשולים (קוצים) */
+        .spike {
+            position: absolute;
+            width: 0; 
+            height: 0; 
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            top: -50px; /* מתחילים מחוץ למסך למעלה */
+        }
+        /* עיצוב קוץ שמאלי */
+        .spike-left {
+            left: 20px;
+            border-left: 20px solid #ffff00;
+        }
+        /* עיצוב קוץ ימני */
+        .spike-right {
+            right: 20px;
+            border-right: 20px solid #ffff00;
+        }
+
+        /* ניקוד */
+        #score {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            pointer-events: none; /* כדי שהלחיצה תעבור דרך הטקסט */
+            z-index: 10;
+        }
+
+        #start-msg {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            text-align: center;
+            color: #00ffcc;
+            font-size: 1.5rem;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="score">0</div>
+    <div id="start-msg">לחץ על המסך כדי להתחיל</div>
+    <div id="left-wall" class="wall"></div>
+    <div id="right-wall" class="wall"></div>
+    <div id="player"></div>
+</div>
+
+<script>
+    const player = document.getElementById('player');
+    const container = document.getElementById('game-container');
+    const scoreElement = document.getElementById('score');
+    const startMsg = document.getElementById('start-msg');
+
+    let isPlaying = false;
+    let score = 0;
+    let playerSide = 'left'; // left או right
+    let gameSpeed = 5;
+    let spikes = []; // מערך לשמירת המכשולים
+    let frameId;
+    let spikeInterval;
+
+    // פונקציה שמזהה מובייל או דסקטופ
+    const actionEvent = 'ontouchstart' in window ? 'touchstart' : 'mousedown';
+
+    // האזנה ללחיצה (טאץ' בטלפון או עכבר במחשב)
+    container.addEventListener(actionEvent, (e) => {
+        e.preventDefault(); // מונע התנהגות דפדפן רגילה
+        
+        if (!isPlaying) {
+            startGame();
+            return;
+        }
+        jump();
+    });
+
+    function jump() {
+        if (playerSide === 'left') {
+            player.style.left = (window.innerWidth - 50) + 'px'; // 50 = רוחב שחקן + רוחב קיר
+            playerSide = 'right';
+        } else {
+            player.style.left = '20px';
+            playerSide = 'left';
+        }
+        // הוספת נקודה על כל קפיצה מוצלחת
+        score++;
+        scoreElement.innerText = score;
+        
+        // הגברת מהירות כל 10 נקודות
+        if(score % 10 === 0) gameSpeed += 0.5;
+    }
+
+    function createSpike() {
+        const spike = document.createElement('div');
+        spike.classList.add('spike');
+        
+        // בחירה רנדומלית אם הקוץ בצד ימין או שמאל
+        const isLeft = Math.random() > 0.5;
+        
+        if (isLeft) {
+            spike.classList.add('spike-left');
+            spike.dataset.side = 'left';
+        } else {
+            spike.classList.add('spike-right');
+            spike.dataset.side = 'right';
+        }
+
+        // מיקום התחלתי (קצת מעל המסך)
+        spike.style.top = '-50px';
+        container.appendChild(spike);
+        spikes.push(spike);
+    }
+
+    function gameLoop() {
+        if (!isPlaying) return;
+
+        // הזזת מכשולים למטה (מדמה שהשחקן רץ למעלה)
+        spikes.forEach((spike, index) => {
+            const currentTop = parseFloat(spike.style.top || -50);
+            spike.style.top = (currentTop + gameSpeed) + 'px';
+
+            // בדיקת התנגשות
+            const spikeRect = spike.getBoundingClientRect();
+            const playerRect = player.getBoundingClientRect();
+
+            // אם הקוץ פוגע בשחקן (רק אם הם באותו צד ובאותו גובה)
+            if (
+                spikeRect.top < playerRect.bottom &&
+                spikeRect.bottom > playerRect.top &&
+                spike.dataset.side === playerSide
+            ) {
+                gameOver();
+            }
+
+            // ניקוי מכשולים שיצאו מהמסך
+            if (currentTop > window.innerHeight) {
+                spike.remove();
+                spikes.splice(index, 1);
+            }
+        });
+
+        frameId = requestAnimationFrame(gameLoop);
+    }
+
+    function startGame() {
+        // איפוס
+        isPlaying = true;
+        score = 0;
+        gameSpeed = 5;
+        scoreElement.innerText = '0';
+        startMsg.style.display = 'none';
+        
+        // מחיקת מכשולים ישנים
+        spikes.forEach(s => s.remove());
+        spikes = [];
+        
+        // איפוס מיקום שחקן
+        playerSide = 'left';
+        player.style.left = '20px';
+
+        // יצירת מכשולים כל שנייה בערך
+        spikeInterval = setInterval(createSpike, 800);
+        gameLoop();
+    }
+
+    function gameOver() {
+        isPlaying = false;
+        cancelAnimationFrame(frameId);
+        clearInterval(spikeInterval);
+        startMsg.innerText = 'נפסלת! לחץ כדי לנסות שוב';
+        startMsg.style.display = 'block';
+        alert('Game Over! Score: ' + score);
+    }
+
+</script>
+
+</body>
+</html>
