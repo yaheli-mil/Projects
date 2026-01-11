@@ -28,7 +28,6 @@
             user-select: none;
         }
 
-        /* כפתור חזרה לגרסה הישנה - צד ימין למטה */
         .old-version-btn {
             position: fixed;
             bottom: 20px;
@@ -82,18 +81,46 @@
             border-radius: 3px;
             margin-bottom: 30px;
             overflow: hidden;
+            position: relative;
         }
 
         .timer-fill {
             height: 100%;
             background: linear-gradient(90deg, #00b894, #00cec9);
             width: 100%;
-            transition: width 0.1s linear;
+            transition: width 0.1s linear, background 0.3s;
+        }
+
+        .timer-bonus {
+            animation: flashGreen 0.5s ease;
+        }
+        
+        @keyframes flashGreen {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.5); box-shadow: 0 0 10px #00b894; }
+            100% { filter: brightness(1); }
+        }
+
+        .plus-time {
+            position: absolute;
+            top: 55px;
+            right: 30px;
+            color: #00b894;
+            font-weight: bold;
+            font-size: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .plus-time.show {
+            opacity: 1;
+            transform: translateY(-25px) scale(1.2);
         }
 
         #word-container {
             margin: 20px 0;
-            min-height: 120px; /* הגדלתי קצת כדי שהפונטים הגדולים לא יחתכו */
+            min-height: 120px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -101,7 +128,6 @@
 
         #word-display {
             font-size: 80px;
-            /* הפונט ייקבע דינמית ב-JS */
             font-weight: 800; 
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             transition: transform 0.2s;
@@ -121,7 +147,7 @@
             transition: all 0.3s;
             box-sizing: border-box;
             background: #fafafa;
-            font-family: 'Segoe UI', sans-serif; /* פונט קבוע לקלט כדי שיהיה קריא */
+            font-family: 'Segoe UI', sans-serif;
         }
 
         #input-area:focus {
@@ -129,7 +155,6 @@
             box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
         }
 
-        /* אנימציות */
         .shake { animation: shake 0.5s; border-color: #ff7675 !important; }
         .pop { animation: pop 0.2s; }
         
@@ -147,7 +172,6 @@
             100% { transform: scale(1); }
         }
 
-        /* מסך סיום */
         #overlay {
             display: none;
             position: absolute;
@@ -218,19 +242,19 @@
     <div class="timer-container">
         <div id="timer-bar" class="timer-fill"></div>
     </div>
+    <div id="time-bonus-indicator" class="plus-time">+2</div>
 
     <div id="word-container">
         <div id="word-display">מוכן?</div>
     </div>
     
     <input type="text" id="input-area" placeholder="הקלד את צבע המילה..." autocomplete="off" disabled>
-    <div class="hint">טיפ: הצבעים והפונטים משתנים כל הזמן!</div>
+    <div class="hint">טיפ: כל תשובה נכונה מוסיפה זמן!</div>
 
     <div id="start-screen" class="start-screen">
         <h1>משחק הצבעים 🎨</h1>
         <p class="instructions">
-            המטרה: להקליד את <b>הצבע</b> שהמילה צבועה בו.<br>
-            שימו לב: כל אות צבועה בגוון שונה, והפונטים מתחלפים!
+            המטרה: להקליד את <b>הצבע</b> שהמילה צבועה בו.
         </p>
         <button class="btn" onclick="startGame()">התחל משחק</button>
     </div>
@@ -243,7 +267,6 @@
 </div>
 
 <script>
-    // מאגר צבעים מורחב
     const colorPalettes = {
         'אדום': ['#FF0000', '#B71C1C', '#FF5252', '#D32F2F', '#E53935', '#FF1744', '#C62828'],
         'כחול': ['#2980b9', '#3498db', '#0984e3', '#1e3799', '#4a69bd', '#0c2461', '#1976D2'],
@@ -258,20 +281,20 @@
         'תכלת': ['#87CEEB', '#00BFFF', '#4FC3F7', '#29B6F6', '#81D4FA', '#03A9F4']
     };
 
-    // רשימת פונטים מעודכנת - כולם תומכים בעברית ונטענים מגוגל
     const fonts = [
-        '"Rubik Wet Paint", cursive', // פונט נוזלי/מטפטף
-        '"Amatic SC", cursive',      // כתב יד דק
-        '"Rubik Glitch", cursive',    // פונט מקולקל/גליץ'
-        '"Secular One", sans-serif',  // עבה ומרובע
-        '"Varela Round", sans-serif', // עגול ונקי
-        '"Bona Nova", serif',         // קלאסי עם תגים
-        '"Rubik Bubbles", cursive',   // פונט בועות
-        'Arial, sans-serif'           // רגיל
+        '"Rubik Wet Paint", cursive',
+        '"Amatic SC", cursive',
+        '"Rubik Glitch", cursive',
+        '"Secular One", sans-serif',
+        '"Varela Round", sans-serif',
+        '"Bona Nova", serif',
+        '"Rubik Bubbles", cursive',
+        'Arial, sans-serif'
     ];
 
     let score = 0;
-    let timeLeft = 30;
+    const MAX_TIME = 30;
+    let timeLeft = MAX_TIME;
     let timerInterval;
     let currentTargetColorName = '';
     let isPlaying = false;
@@ -285,12 +308,13 @@
     const overlay = document.getElementById('overlay');
     const startScreen = document.getElementById('start-screen');
     const finalScoreDisplay = document.getElementById('final-score');
+    const timeBonusIndicator = document.getElementById('time-bonus-indicator');
 
     highScoreDisplay.textContent = `שיא: ${highScore}`;
 
     function startGame() {
         score = 0;
-        timeLeft = 30;
+        timeLeft = MAX_TIME;
         isPlaying = true;
         scoreDisplay.textContent = "ניקוד: 0";
         overlay.style.display = 'none';
@@ -314,7 +338,7 @@
     }
 
     function updateTimerVisuals() {
-        const percentage = (timeLeft / 30) * 100;
+        const percentage = Math.min((timeLeft / MAX_TIME) * 100, 100);
         timerBar.style.width = percentage + "%";
         
         if (percentage < 20) {
@@ -329,11 +353,9 @@
         const textName = colorNames[Math.floor(Math.random() * colorNames.length)];
         const colorName = colorNames[Math.floor(Math.random() * colorNames.length)];
         
-        // בחירת פונט רנדומלי מהרשימה החדשה
         const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
         wordDisplay.style.fontFamily = randomFont;
 
-        // התאמת גודל הפונט (חלק מפונטי גוגל קטנים יותר)
         if (randomFont.includes('Amatic')) {
             wordDisplay.style.fontSize = '110px';
         } else {
@@ -356,6 +378,17 @@
         wordDisplay.classList.add('pop');
     }
 
+    function showTimeBonus() {
+        timeBonusIndicator.classList.remove('show');
+        void timeBonusIndicator.offsetWidth;
+        timeBonusIndicator.classList.add('show');
+        
+        timerBar.parentElement.classList.add('timer-bonus');
+        setTimeout(() => {
+            timerBar.parentElement.classList.remove('timer-bonus');
+        }, 500);
+    }
+
     function checkInput() {
         if (!isPlaying) return;
         const userInput = inputArea.value.trim().toLowerCase();
@@ -363,6 +396,13 @@
         if (userInput === currentTargetColorName) {
             score++;
             scoreDisplay.textContent = "ניקוד: " + score;
+            
+            timeLeft += 2;
+            if (timeLeft > MAX_TIME) timeLeft = MAX_TIME; 
+            
+            updateTimerVisuals();
+            showTimeBonus();
+
             inputArea.value = '';
             nextRound();
         }
