@@ -76,19 +76,38 @@
 
         .timer-container {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: #dfe6e9;
-            border-radius: 3px;
+            border-radius: 4px;
             margin-bottom: 30px;
             overflow: hidden;
             position: relative;
+            padding: 2px;
+            margin-left: -2px;
+            margin-right: -2px;
+            box-sizing: content-box;
         }
 
         .timer-fill {
             height: 100%;
-            background: linear-gradient(90deg, #00b894, #00cec9);
             width: 100%;
-            transition: width 0.1s linear, background 0.3s;
+            border-radius: 4px;
+            transition: width 0.2s linear, background 0.3s, box-shadow 0.3s, filter 0.3s;
+        }
+
+        .timer-add-time-glow {
+            box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.8), 0 0 8px rgba(108, 92, 231, 0.5);
+            filter: brightness(1.3);
+            z-index: 2;
+        }
+
+        .timer-blink {
+            animation: pulse-red 0.5s infinite alternate;
+        }
+
+        @keyframes pulse-red {
+            from { opacity: 1; box-shadow: 0 0 5px #ff7675; }
+            to { opacity: 0.6; box-shadow: 0 0 15px #d63031; }
         }
 
         #word-container {
@@ -230,7 +249,7 @@
             המטרה: להקליד את <b>הצבע</b> שהמילה צבועה בו.
         </p>
         <p class="instructions-note">
-            שימו לב: כל אות צבועה בגוון שונה, והפונטים מתחלפים!
+            שימו לב: ככל שהניקוד עולה - הזמן רץ מהר יותר! ⚡
         </p>
         <button class="btn" onclick="startGame()">התחל משחק</button>
     </div>
@@ -271,7 +290,7 @@
     let score = 0;
     const MAX_TIME = 30;
     let timeLeft = MAX_TIME;
-    let timerInterval;
+    let timerTimeout;
     let currentTargetColorName = '';
     let isPlaying = false;
     let highScore = localStorage.getItem('colorGameHighScoreV2') || 0;
@@ -301,26 +320,53 @@
         updateTimerVisuals();
         nextRound();
 
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = setInterval(() => {
+        if (timerTimeout) clearTimeout(timerTimeout);
+        runTimer();
+    }
+
+    function runTimer() {
+        if (!isPlaying) return;
+
+        let speed = Math.max(250, 1000 - (score * 25));
+
+        timerTimeout = setTimeout(() => {
             timeLeft--;
             updateTimerVisuals();
             
             if (timeLeft <= 0) {
                 endGame();
+            } else {
+                runTimer();
             }
-        }, 1000);
+        }, speed);
     }
 
     function updateTimerVisuals() {
         const percentage = Math.min((timeLeft / MAX_TIME) * 100, 100);
         timerBar.style.width = percentage + "%";
         
-        if (percentage < 20) {
-            timerBar.style.background = "#ff7675";
-        } else {
+        timerBar.classList.remove('timer-blink');
+
+        if (percentage > 50) {
             timerBar.style.background = "linear-gradient(90deg, #00b894, #00cec9)";
+        } else if (percentage > 20) {
+            timerBar.style.background = "linear-gradient(90deg, #f1c40f, #f39c12)";
+        } else {
+            timerBar.style.background = "#d63031";
+            if (!timerBar.classList.contains('timer-add-time-glow')) {
+                timerBar.classList.add('timer-blink');
+            }
         }
+    }
+
+    function triggerTimeAddedEffect() {
+        timerBar.classList.remove('timer-blink');
+        timerBar.classList.add('timer-add-time-glow');
+        
+        setTimeout(() => {
+            timerBar.classList.remove('timer-add-time-glow');
+            updateTimerVisuals();
+        }, 300);
     }
 
     function nextRound() {
@@ -364,6 +410,8 @@
             timeLeft += 2;
             if (timeLeft > MAX_TIME) timeLeft = MAX_TIME; 
             
+            triggerTimeAddedEffect();
+            
             updateTimerVisuals();
 
             inputArea.value = '';
@@ -373,8 +421,10 @@
 
     function endGame() {
         isPlaying = false;
-        clearInterval(timerInterval);
+        clearTimeout(timerTimeout);
         inputArea.disabled = true;
+        timerBar.classList.remove('timer-blink');
+        timerBar.classList.remove('timer-add-time-glow');
         
         if (score > highScore) {
             highScore = score;
