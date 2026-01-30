@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* תיקון חשוב: דואג שפאדינג לא ירחיב את האלמנטים מעבר לרוחב המסך */
         *, *::before, *::after {
             box-sizing: border-box;
         }
@@ -22,13 +21,13 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            overflow-x: hidden; /* מונע גלילה צדדית מיותרת */
+            overflow-x: hidden;
         }
 
         header {
             background-color: #0056b3;
             color: white;
-            padding: 30px 20px; /* הוספת פאדינג בצדדים */
+            padding: 30px 20px;
             text-align: center;
             border-bottom: 5px solid #004494;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -92,7 +91,6 @@
             background: #f0f4f8;
             width: 70px;
             height: 70px;
-            /* מונע מהאייקון להתכווץ */
             flex-shrink: 0; 
             display: flex;
             align-items: center;
@@ -143,27 +141,26 @@
             background: white;
         }
 
-        /* --- התאמה למובייל (קוד חדש) --- */
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2.2rem;
             }
             
             .container {
-                width: 92%; /* מרחיב את הקונטיינר במובייל */
-                padding: 25px 20px; /* מקטין את הפאדינג הפנימי */
+                width: 92%;
+                padding: 25px 20px;
                 margin: 20px auto;
             }
 
             .project-item {
-                flex-direction: column; /* מסדר את האייקון והטקסט אחד מתחת לשני */
+                flex-direction: column;
                 text-align: center;
                 padding: 20px;
             }
 
             .project-icon {
                 margin-left: 0;
-                margin-bottom: 15px; /* רווח מלמטה במקום מהצד */
+                margin-bottom: 15px;
             }
 
             .project-info h3 {
@@ -188,6 +185,15 @@
                 <h3>משחק הצבעים</h3>
                 <p>משחק אינטראקטיבי הבוחן מהירות תגובה. המטרה היא להקליד את צבע המילה ולא את הטקסט.</p>
                 <a href="./color-game" class="btn">למשחק &larr;</a>
+            </div>
+        </div>
+		
+        <div class="project-item">
+            <div class="project-icon">📅</div>
+            <div class="project-info">
+                <h3>מערכת ניהול משימות</h3>
+                <p>מערכת חכמה לניהול משימות שבועיות עם שמירה אוטומטית, איפוס שבועי וממשק נוח לשימוש.</p>
+                <a href="./tasks" class="btn">למערכת &larr;</a>
             </div>
         </div>
 
