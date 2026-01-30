@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מערכת משימות שבועית 📅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --border-color: #e5e7eb;
+            --header-bg: #f9fafb;
+            --delete-color: #ef4444;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1600px;
+            align-items: start;
+        }
+
+        .sidebar {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin: 0 0 15px 0;
+            color: var(--text-color);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .sidebar-footer {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .old-version-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: var(--text-color);
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .old-version-btn:hover {
+            background-color: #f9fafb;
+            border-color: #d1d5db;
+            color: var(--primary-color);
+        }
+
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .day-column {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+        }
+
+        .day-header {
+            background-color: var(--header-bg);
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-color);
+        }
+
+        .task-list {
+            padding: 10px;
+            flex-grow: 1;
+            list-style-type: none;
+            margin: 0;
+        }
+
+        .task-card {
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid var(--primary-color);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            word-break: break-word;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 0;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .delete-btn:hover {
+            color: var(--delete-color);
+        }
+
+        .empty-msg {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .week-info {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            background: #e0e7ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        @media (max-width: 1200px) {
+            .days-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .days-container {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                order: 1;
+            }
+
+            .sidebar {
+                order: 2;
+                width: 100%;
+                box-sizing: border-box;
+                position: static;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .day-column {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ניהול משימות שבועי 📅</h1>
+    <div class="week-info" id="currentWeekDisplay">שבוע נוכחי</div>
+
+    <div class="main-container">
+        
+        <aside class="sidebar">
+            <div>
+                <h2>➕ הוספת משימה</h2>
+                <form id="taskForm" onsubmit="addTask(event)">
+                    <label for="task-desc">תיאור המשימה:</label>
+                    <input type="text" id="task-desc" placeholder="מה צריך לעשות?" required>
+                    
+                    <label for="task-day">יום ביצוע:</label>
+                    <select id="task-day">
+                        <option value="sun">ראשון</option>
+                        <option value="mon">שני</option>
+                        <option value="tue">שלישי</option>
+                        <option value="wed">רביעי</option>
+                        <option value="thu">חמישי</option>
+                        <option value="fri">שישי</option>
+                        <option value="sat">שבת</option>
+                    </select>
+
+                    <button type="submit">הוסף לרשימה</button>
+                </form>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="old.html" class="old-version-btn">חזרה לגרסה הישנה ⏪</a>
+            </div>
+        </aside>
+
+        <main class="days-container">
+            <div class="day-column">
+                <div class="day-header">ראשון</div>
+                <div id="list-sun" class="task-list"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">שני</div>
+                <div id="list-mon" class="task-list"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">שלישי</div>
+                <div id="list-tue" class="task-list"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">רביעי</div>
+                <div id="list-wed" class="task-list"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">חמישי</div>
+                <div id="list-thu" class="task-list"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">שישי</div>
+                <div id="list-fri" class="task-list"></div>
+            </div>
+            <div class="day-column">
+                <div class="day-header">שבת</div>
+                <div id="list-sat" class="task-list"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const emptyData = { sun: [], mon: [], tue: [], wed: [], thu: [], fri: [], sat: [] };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            checkWeeklyReset();
+            renderAllTasks();
+        });
+
+        function getWeekNumber(d) {
+            d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+            return d.getUTCFullYear() + "-W" + weekNo;
+        }
+
+        function checkWeeklyReset() {
+            const currentWeekID = getWeekNumber(new Date());
+            const savedWeekID = localStorage.getItem('weekID');
+            const display = document.getElementById('currentWeekDisplay');
+            
+            display.textContent = `שבוע ${currentWeekID.split('-W')[1]} לשנת ${currentWeekID.split('-W')[0]}`;
+
+            if (savedWeekID !== currentWeekID) {
+                localStorage.setItem('weeklyTasks', JSON.stringify(emptyData));
+                localStorage.setItem('weekID', currentWeekID);
+            }
+        }
+
+        function addTask(e) {
+            e.preventDefault();
+            
+            const text = document.getElementById("task-desc").value;
+            const day = document.getElementById("task-day").value;
+            
+            if (!text.trim()) return;
+
+            let data = getData();
+            data[day].push(text);
+            saveData(data);
+            
+            renderAllTasks();
+            document.getElementById("taskForm").reset();
+        }
+
+        function removeTask(day, index) {
+            if (confirm("למחוק משימה זו?")) {
+                let data = getData();
+                data[day].splice(index, 1);
+                saveData(data);
+                renderAllTasks();
+            }
+        }
+
+        function getData() {
+            const json = localStorage.getItem('weeklyTasks');
+            let data = json ? JSON.parse(json) : JSON.parse(JSON.stringify(emptyData));
+            
+            if (!data.fri) data.fri = [];
+            if (!data.sat) data.sat = [];
+            
+            return data;
+        }
+
+        function saveData(data) {
+            localStorage.setItem('weeklyTasks', JSON.stringify(data));
+        }
+
+        function renderAllTasks() {
+            const data = getData();
+            const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+            days.forEach(day => {
+                const listContainer = document.getElementById(`list-${day}`);
+                if (listContainer) {
+                    listContainer.innerHTML = '';
+
+                    if (data[day].length === 0) {
+                        listContainer.innerHTML = '<div class="empty-msg">אין משימות</div>';
+                    } else {
+                        data[day].forEach((task, index) => {
+                            const div = document.createElement('div');
+                            div.className = 'task-card';
+                            div.innerHTML = `
+                                <span>${task}</span>
+                                <button class="delete-btn" onclick="removeTask('${day}', ${index})" title="מחק">×</button>
+                            `;
+                            listContainer.appendChild(div);
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
