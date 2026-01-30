@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מערכת משימות שבועית - גרסה קלאסית</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #fff;
+            margin: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            table-layout: fixed;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ccc;
+            height: 40px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 30px auto 20px auto;
+            padding: 25px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fbfbfb;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .switch-container {
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fbfbfb;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-sizing: border-box; 
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button[type="button"] {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 12px;
+            font-size: 18px;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        button[type="button"]:hover {
+            background-color: #3e8e41;
+        }
+
+        .switch-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            background-color: #2196F3;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .switch-btn:hover {
+            background-color: #1976D2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>מערכת משימות שבועית</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 120px;">שעה</th>
+                <th>ראשון</th>
+                <th>שני</th>
+                <th>שלישי</th>
+                <th>רביעי</th>
+                <th>חמישי</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>9:00 - 10:00</th>
+                <td id="sun-9"></td>
+                <td id="mon-9"></td>
+                <td id="tue-9"></td>
+                <td id="wed-9"></td>
+                <td id="thu-9"></td>
+            </tr>
+            <tr>
+                <th>10:00 - 11:00</th>
+                <td id="sun-10"></td>
+                <td id="mon-10"></td>
+                <td id="tue-10"></td>
+                <td id="wed-10"></td>
+                <td id="thu-10"></td>
+            </tr>
+            <tr>
+                <th>11:00 - 12:00</th>
+                <td id="sun-11"></td>
+                <td id="mon-11"></td>
+                <td id="tue-11"></td>
+                <td id="wed-11"></td>
+                <td id="thu-11"></td>
+            </tr>
+            <tr>
+                <th>12:00 - 13:00</th>
+                <td id="sun-12"></td>
+                <td id="mon-12"></td>
+                <td id="tue-12"></td>
+                <td id="wed-12"></td>
+                <td id="thu-12"></td>
+            </tr>
+            <tr>
+                <th>13:00 - 14:00</th>
+                <td id="sun-13"></td>
+                <td id="mon-13"></td>
+                <td id="tue-13"></td>
+                <td id="wed-13"></td>
+                <td id="thu-13"></td>
+            </tr>
+            <tr>
+                <th>14:00 - 15:00</th>
+                <td id="sun-14"></td>
+                <td id="mon-14"></td>
+                <td id="tue-14"></td>
+                <td id="wed-14"></td>
+                <td id="thu-14"></td>
+            </tr>
+            <tr>
+                <th>15:00 - 16:00</th>
+                <td id="sun-15"></td>
+                <td id="mon-15"></td>
+                <td id="tue-15"></td>
+                <td id="wed-15"></td>
+                <td id="thu-15"></td>
+            </tr>
+            <tr>
+                <th>16:00 - 17:00</th>
+                <td id="sun-16"></td>
+                <td id="mon-16"></td>
+                <td id="tue-16"></td>
+                <td id="wed-16"></td>
+                <td id="thu-16"></td>
+            </tr>
+            <tr>
+                <th>17:00 - 18:00</th>
+                <td id="sun-17"></td>
+                <td id="mon-17"></td>
+                <td id="tue-17"></td>
+                <td id="wed-17"></td>
+                <td id="thu-17"></td>
+            </tr>
+            <tr>
+                <th>18:00 - 19:00</th>
+                <td id="sun-18"></td>
+                <td id="mon-18"></td>
+                <td id="tue-18"></td>
+                <td id="wed-18"></td>
+                <td id="thu-18"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form id="fixedTaskForm">
+        <h2>הוספת משימה</h2>
+        <label for="task">תיאור המשימה:</label>
+        <input type="text" id="task" name="task" placeholder="לדוגמה: שיעור מתמטיקה">
+        
+        <label for="day">יום בשבוע:</label>
+        <select id="day" name="day">
+            <option value="sun">ראשון</option>
+            <option value="mon">שני</option>
+            <option value="tue">שלישי</option>
+            <option value="wed">רביעי</option>
+            <option value="thu">חמישי</option>
+        </select>
+        
+        <label for="time">שעה:</label>
+        <select id="time" name="time">
+            <option value="9">9:00</option>
+            <option value="10">10:00</option>
+            <option value="11">11:00</option>
+            <option value="12">12:00</option>
+            <option value="13">13:00</option>
+            <option value="14">14:00</option>
+            <option value="15">15:00</option>
+            <option value="16">16:00</option>
+            <option value="17">17:00</option>
+            <option value="18">18:00</option>
+        </select>
+        
+        <button type="button" onclick="addTask()">שבץ בלוח</button>
+    </form>
+
+    <div class="switch-container">
+        <a href="../tasks" class="switch-btn">עבור לגרסה החדשה ✨</a>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('legacyVersionSeen')) {
+            alert("שימו לב: זו הגרסה הישנה שנכתבה ידנית (בלי בינה מלאכותית). המשחק כולל באגים ומוצג כאן למטרות היסטוריה בלבד.");
+            localStorage.setItem('legacyVersionSeen', 'true');
+        }
+
+        function addTask() {
+            var task = document.getElementById("task").value;
+            var day = document.getElementById("day").value;
+            var time = document.getElementById("time").value;
+
+            if (task === "") {
+                alert("נא להזין שם משימה");
+                return;
+            }
+
+            var cell = document.getElementById(day + "-" + time);
+            if (cell) {
+                cell.innerHTML = task;
+                document.getElementById("task").value = "";
+            } else {
+                alert("אירעה שגיאה במציאת התא בטבלה");
+            }
+        }
+    </script>
+
+</body>
+</html>
