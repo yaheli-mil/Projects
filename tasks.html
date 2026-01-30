@@ -46,15 +46,18 @@
         }
 
         .sidebar {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+        }
+
+        .sidebar-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
@@ -105,29 +108,27 @@
             background-color: var(--primary-hover);
         }
 
-        .sidebar-footer {
-            margin-top: 10px;
-            text-align: center;
-        }
-
         .old-version-btn {
             display: inline-block;
             text-decoration: none;
             color: var(--text-color);
             background-color: #fff;
             border: 1px solid var(--border-color);
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
             transition: all 0.2s;
             width: 100%;
             box-sizing: border-box;
+            text-align: center;
+            font-weight: 500;
         }
 
         .old-version-btn:hover {
             background-color: #f9fafb;
-            border-color: #d1d5db;
+            border-color: var(--primary-color);
             color: var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .days-container {
@@ -193,9 +194,11 @@
             padding: 0;
             font-size: 1.1rem;
             line-height: 1;
+            width: auto;
         }
 
         .delete-btn:hover {
+            background-color: transparent;
             color: var(--delete-color);
         }
 
@@ -262,7 +265,7 @@
     <div class="main-container">
         
         <aside class="sidebar">
-            <div>
+            <div class="sidebar-box">
                 <h2>➕ הוספת משימה</h2>
                 <form id="taskForm" onsubmit="addTask(event)">
                     <label for="task-desc">תיאור המשימה:</label>
@@ -283,8 +286,8 @@
                 </form>
             </div>
 
-            <div class="sidebar-footer">
-                <a href="old.html" class="old-version-btn">חזרה לגרסה הישנה ⏪</a>
+            <div class="sidebar-box">
+                <a href="old" class="old-version-btn">חזרה לגרסה הישנה ⏪</a>
             </div>
         </aside>
 
