@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>שנות שירות מתאימות - 10 ש״שינים ומעלה</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18212f;
+      --muted: #5b6472;
+      --line: #d7dde7;
+      --soft: #f4f7fb;
+      --soft-2: #eef8f4;
+      --accent: #126c8f;
+      --accent-2: #2f7d5b;
+      --warn: #8b5e12;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans Hebrew", sans-serif;
+      color: var(--ink);
+      background: #f8fafc;
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 18px 52px;
+    }
+    header {
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+    }
+    h1 {
+      font-size: 32px;
+      margin: 0 0 8px;
+      letter-spacing: 0;
+    }
+    h2 {
+      font-size: 23px;
+      margin: 32px 0 12px;
+      letter-spacing: 0;
+    }
+    h3 {
+      font-size: 18px;
+      margin: 0 0 8px;
+      letter-spacing: 0;
+    }
+    p { margin: 8px 0; }
+    a { color: var(--accent); }
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .note {
+      background: #fff8e9;
+      border: 1px solid #ead3a2;
+      color: var(--warn);
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0 6px;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 2px;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 170px;
+    }
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 12px;
+      margin: 0 0 8px 6px;
+      color: #fff;
+      background: var(--accent);
+    }
+    .tag.good { background: var(--accent-2); }
+    .tag.check { background: #856404; }
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+      text-align: right;
+      font-size: 14px;
+    }
+    th {
+      background: var(--soft);
+      font-size: 13px;
+      color: #313b49;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: 0; }
+    td.name {
+      font-weight: 700;
+      min-width: 130px;
+    }
+    .fit-best { color: #0f6849; font-weight: 700; }
+    .fit-high { color: #126c8f; font-weight: 700; }
+    .fit-check { color: #856404; font-weight: 700; }
+    details {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 14px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .conference-list {
+      column-count: 2;
+      column-gap: 24px;
+      margin-top: 12px;
+    }
+    .conference-list p {
+      break-inside: avoid;
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    @media (max-width: 900px) {
+      .summary, .grid { grid-template-columns: 1fr; }
+      .conference-list { column-count: 1; }
+      table { display: block; overflow-x: auto; }
+      h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>שנות שירות שמתאימות לסגנון “אח גדול”</h1>
+    <p>סינון לפי החלון הפתוח באתר התנועה הקיבוצית: פנימיות / כפרי נוער, גילאי נוער, אזורי מרכז / צפון / השרון, ורק מסגרות עם 10 ש״שינים ומעלה.</p>
+    <p class="meta">נאסף ב-15.09.2026 מתוך רשימת המסגרות ודפי הפירוט באתר <a href="https://www.sherut-kibbutz.com/%d7%9e%d7%a0%d7%95%d7%a2-%d7%97%d7%99%d7%a4%d7%95%d7%a9-%d7%9e%d7%a1%d7%92%d7%a8%d7%95%d7%aa/">שנת שירות בתנועה הקיבוצית</a>.</p>
+  </header>
+
+  <div class="note">
+    חשוב: חלק מתאריכי כנסי המיון שהאתר הציג הם כבר בעבר ביחס ל-15.09.2026, וחלק מופיעים כ-2027. לפני הרשמה או פנייה למסגרת צריך לבדוק באתר/מול איש הקשר שהתאריכים עוד נכונים.
+  </div>
+
+  <section>
+    <h2>לפתוח קודם</h2>
+    <p>אלה הכי קרובות לסגנון שתיארת: ש״ש כחלק מצוות הדרכה, דמות “אח גדול”, ליווי קבוצת חניכים, פעילויות חברתיות/חינוכיות, קומונה ואחריות יום-יומית.</p>
+    <div class="grid">
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>הכפר הירוק - 21 ש״שינים</h3>
+        <p>דמות חינוכית משמעותית, ליווי אישי וקבוצתי, פרויקטים, טקסים, פעילויות, התנדבויות ומשק חקלאי.</p>
+        <p class="small">בין תל אביב לרמת השרון · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%9b%d7%a4%d7%a8-%d7%94%d7%99%d7%a8%d7%95%d7%a7/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>ויצ״ו הדסים - 10</h3>
+        <p>ש״ש כצוות צעיר בקבוצה, דמות בוגרת ולא משמעתית, קשר אישי, פרויקטים, חוגים ושבתות כפר.</p>
+        <p class="small">אבן יהודה · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%94%d7%93%d7%a1%d7%99%d7%9d/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>כפר גלים - 16</h3>
+        <p>ליווי קבוצה לאורך השנה, חיבור בין חניכים לצוות, עזרה לימודית, משק חקלאי, פעילויות ויוזמות אישיות.</p>
+        <p class="small">חוף הכרמל · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a4%d7%a8-%d7%92%d7%9c%d7%99%d7%9d/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag good">מתאים מאוד</span>
+        <h3>נירים - 19 ש״שינים</h3>
+        <p>דמות זמינה ומעצימה, ליווי בפנימייה, בית ספר וחוגים, ישיבות סגל ופעילות שטח משמעותית.</p>
+        <p class="small">בוסתן הגליל · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%99%d7%a8%d7%99%d7%9d/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>מוסינזון - 10</h3>
+        <p>מוגדר כאיש צוות צעיר ודרג ביניים בין החניכים לצוות הבוגר, עם ליווי קבוצה, בית ספר ופעילויות.</p>
+        <p class="small">הוד השרון · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%95%d7%a1%d7%99%d7%a0%d7%96%d7%95%d7%9f/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>עתיד רזיאל - 10</h3>
+        <p>ש״ש כחלק מצוות הדרכת קבוצה, שיחות אישיות, לימודים, פעילויות, משק, אירועים ואווירת קומונה חזקה.</p>
+        <p class="small">הרצליה · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%aa%d7%99%d7%93-%d7%a8%d7%96%d7%99%d7%90%d7%9c/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>נווה הדסה - 10</h3>
+        <p>דמות השראה ו“אח גדול”, מעורבות בפנימייה ובבית הספר, חקלאות, אירועי שיא, תגבור לימודי ותוכן חינוכי.</p>
+        <p class="small">ליד תל יצחק · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a1%d7%94/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>בן שמן - 15</h3>
+        <p>ליווי חיי פנימייה וקהילה, תמיכה אישית, פעילויות חברתיות וחינוכיות, פרויקטים ומשק חקלאי.</p>
+        <p class="small">בן שמן · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%9f-%d7%a9%d7%9e%d7%9f/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>אהבה - 18</h3>
+        <p>משפחתונים, קשר יומיומי, דמות בוגרת וחברית, תמיכה וליווי ללא דגש על משמעת. מאוד “אח/ות גדול/ה”.</p>
+        <p class="small">כפר ביאליק · פנימייה · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%94%d7%91%d7%94/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>כדורי - 12</h3>
+        <p>צוות פנימייה, ליווי קבוצה, חוגים, אירועי תוכן, נראות הכפר ועבודה יומיומית שמדגישה דוגמה אישית.</p>
+        <p class="small">גליל תחתון · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%93%d7%95%d7%a8%d7%99/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag">הכי מתאים</span>
+        <h3>כנות - 14</h3>
+        <p>שילוב חזק בין פנימייה ומשק, דמות אח/ות בוגר/ת, יוזמות ופרויקטים, אחריות יום-יומית מול חניכים.</p>
+        <p class="small">צומת כנות · כפר נוער · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a0%d7%95%d7%aa/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag good">מתאים מאוד</span>
+        <h3>שבילים - 10</h3>
+        <p>קשר אישי עמוק ותומך עם בני נוער בפנימייה טיפולית-פוסט אשפוזית. מתאים אם אתה רוצה משמעות וקשר רגשי חזק.</p>
+        <p class="small">עמק חפר · פנימייה · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%a9%d7%91%d7%99%d7%9c%d7%99%d7%9d/">מקור</a></p>
+      </article>
+      <article class="card">
+        <span class="tag good">מתאים מאוד</span>
+        <h3>תל ברוך - 14</h3>
+        <p>ליווי קבוצה לאורך היום, שיעורים, חוגים, ארוחות, ליווי חיצוני ושגרת חיים של ילדים ונוער בפנימייה.</p>
+        <p class="small">תל אביב · פנימייה · <a href="https://www.sherut-kibbutz.com/voluntary/%d7%aa%d7%9c-%d7%91%d7%a8%d7%95%d7%9a/">מקור</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>כל המסגרות שנכנסו לרשימה</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>שם</th>
+          <th>אזור ומיקום</th>
+          <th>סיווג</th>
+          <th>ש״שינים</th>
+          <th>התאמה</th>
+          <th>מה התפקיד מזכיר בפועל</th>
+          <th>לשאול/לבדוק</th>
+          <th>מקור</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">אהבה</td><td>צפון · כפר ביאליק</td><td>פנימיות</td><td>18</td><td class="fit-best">הכי מתאים</td><td>משפחתונים, דמות בוגרת וחברית, פעילויות ופרויקטים, קשר יומיומי לא משמעתי.</td><td>לוודא לאיזה משפחתון משובצים ומה היחס בין ילדים לנוער.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%94%d7%91%d7%94/">קישור</a></td></tr>
+        <tr><td class="name">אחוזת ילדים</td><td>צפון · חיפה</td><td>פנימיות</td><td>10</td><td class="fit-high">מתאים מאוד</td><td>מודל אח בוגר, ליווי יום-יומי, חוגים, תרבות ועזרה ברגעי משבר.</td><td>מסגרת טיפולית ופוסט-אשפוזית; לבדוק עומס רגשי והדרכה.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%97%d7%95%d7%96%d7%aa-%d7%99%d7%9c%d7%93%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">בית אפל</td><td>מרכז · גן יבנה</td><td>פנימיות</td><td>12</td><td class="fit-check">לבדיקה</td><td>פנימייה טיפולית לילדים ונוער, אבל בדף לא הופיע פירוט ברור של תפקיד הש״ש.</td><td>לשאול בדיוק מה עושים בשגרה ומה מידת הקשר עם חניכים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%90%d7%a4%d7%9c/">קישור</a></td></tr>
+        <tr><td class="name">בית רות</td><td>צפון · עפולה</td><td>פנימיות</td><td>10</td><td class="fit-high">מתאים מאוד</td><td>קשר אישי מעצים, דמות “אחות גדולה”, שגרה מלאה עם הנערות ואירועים בכפר.</td><td>כפר לנערות; לבדוק התאמה אישית ומגדרית.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%a8%d7%95%d7%aa/">קישור</a></td></tr>
+        <tr><td class="name">בן שמן</td><td>מרכז · בן שמן</td><td>כפרי נוער</td><td>15</td><td class="fit-best">הכי מתאים</td><td>תמיכה וליווי, פעילויות ערכיות, פרויקטים, צוותי חינוך ומשק חקלאי.</td><td>לבדוק באילו ענפים/קבוצות משובצים בפועל.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%9f-%d7%a9%d7%9e%d7%9f/">קישור</a></td></tr>
+        <tr><td class="name">האורנים</td><td>מרכז · בין ראשל״צ לנס ציונה</td><td>פנימיות</td><td>15</td><td class="fit-high">מתאים מאוד</td><td>דמות יציבה ואח בוגר, ליווי פעילויות בכפר, אחריות גבוהה מול בני נוער.</td><td>מסגרת פוסט-אשפוזית; לבדוק הדרכה וליווי רגשי לש״ש.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%90%d7%95%d7%a8%d7%a0%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">הבית לילד - בית זינגר</td><td>צפון · כפר יחזקאל</td><td>פנימיות</td><td>14</td><td class="fit-high">מתאים מאוד</td><td>ליווי ילדים לאורך היום, סדר יום פנימייתי, משחקים, שיחות ועבודה לצד צוות בוגר.</td><td>מסגרת מאתגרת; חשוב לשאול על גבולות תפקיד והדרכה.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%91%d7%99%d7%aa-%d7%9c%d7%99%d7%9c%d7%93-%d7%91%d7%99%d7%aa-%d7%96%d7%99%d7%a0%d7%92%d7%a8/">קישור</a></td></tr>
+        <tr><td class="name">הכפר הירוק</td><td>מרכז · בין תל אביב לרמת השרון</td><td>כפרי נוער</td><td>21</td><td class="fit-best">הכי מתאים</td><td>דמות חינוכית משמעותית, חלק מהצוות, ליווי אישי וקבוצתי, פרויקטים, טקסים, פעילויות ומשק חקלאי.</td><td>מסגרת גדולה מאוד עם פנימייה, משפחתונים ו-EMIS; לשאול לאיזו מסגרת משובצים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%9b%d7%a4%d7%a8-%d7%94%d7%99%d7%a8%d7%95%d7%a7/">קישור</a></td></tr>
+        <tr><td class="name">ויצ״ו הדסים</td><td>השרון · אבן יהודה</td><td>כפרי נוער</td><td>10</td><td class="fit-best">הכי מתאים</td><td>איש צוות צעיר בקבוצה, אח בוגר, תמיכה, פרויקטים, חוגים, שבתות ומשק.</td><td>לוודא לאיזו קבוצת נוער משתבצים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%94%d7%93%d7%a1%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">ויצ״ו ניר העמק</td><td>צפון · עפולה</td><td>כפרי נוער</td><td>10</td><td class="fit-best">הכי מתאים</td><td>קבוצה, כפר ומשק: שיחות אישיות, פעילויות ערכיות, לימודים, שבתות וחוגים.</td><td>לבדוק טווח התאריכים באתר, כי הופיעו שנים לא עקביות.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%a0%d7%99%d7%a8-%d7%94%d7%a2%d7%9e%d7%a7/">קישור</a></td></tr>
+        <tr><td class="name">טוביה</td><td>צפון · הרדוף</td><td>פנימיות</td><td>15</td><td class="fit-high">מתאים מאוד</td><td>חלק מלא מהעבודה עם הילדים: שגרה, בית, פעילויות, תרבות, ישיבות צוות והדרכה.</td><td>יש הרבה ילדים צעירים לצד נוער; לבדוק אם זה מתאים לך.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%98%d7%95%d7%91%d7%99%d7%94/">קישור</a></td></tr>
+        <tr><td class="name">טוקאייר</td><td>השרון · בחן</td><td>פנימיות</td><td>10</td><td class="fit-best">הכי מתאים</td><td>חלק משמעותי מצוות הקבוצה, עבודה ישירה, משימות בוקר, תרבות ופנאי, אח גדול.</td><td>מיועד לבנים בלבד לפי הדף; לבדוק אופי הקבוצה.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%98%d7%95%d7%a7%d7%90%d7%99%d7%99%d7%a8/">קישור</a></td></tr>
+        <tr><td class="name">כדורי</td><td>צפון · גליל תחתון</td><td>כפרי נוער</td><td>12</td><td class="fit-best">הכי מתאים</td><td>ליווי קבוצה, חוגים, פרויקטים, מרחבי פנימייה, נוי/יערנות ודוגמה אישית.</td><td>הרבה עבודה פיזית ויוזמה; מתאים למי שרוצה אינטנסיביות.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%93%d7%95%d7%a8%d7%99/">קישור</a></td></tr>
+        <tr><td class="name">כנות</td><td>מרכז · צומת כנות</td><td>כפרי נוער</td><td>14</td><td class="fit-best">הכי מתאים</td><td>אח/ות בוגר/ת בפנימייה, יוזמות, משק חקלאי, עבודה עם חניכים לאורך היום.</td><td>לבדוק באיזה ענף משק משתבצים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a0%d7%95%d7%aa/">קישור</a></td></tr>
+        <tr><td class="name">כפר גלים</td><td>צפון · חוף הכרמל</td><td>כפרי נוער</td><td>16</td><td class="fit-best">הכי מתאים</td><td>ש״ש כחלק מצוות קבוצה, אח בוגר, עזרה לימודית, משק, פעילויות ופרויקטים.</td><td>לבדוק אם משובצים לקבוצת נעל״ה/כדורגל/קבוצות אחרות.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a4%d7%a8-%d7%92%d7%9c%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">כפר הנוער מאיר שפיה</td><td>צפון · ליד זיכרון יעקב</td><td>כפרי נוער</td><td>12</td><td class="fit-best">הכי מתאים</td><td>צוות בוגר בכפר, קבוצה, משק חקלאי, חוגים, ליווי אישי ואקדמיות ספורט.</td><td>פירוט רחב מאוד; לשאול מה בפועל השיבוץ היומי שלך.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a4%d7%a8-%d7%94%d7%a0%d7%95%d7%a2%d7%a8-%d7%9e%d7%90%d7%99%d7%a8-%d7%a9%d7%a4%d7%99%d7%94/">קישור</a></td></tr>
+        <tr><td class="name">מגדים</td><td>צפון · מגדל העמק</td><td>פנימיות</td><td>12</td><td class="fit-high">מתאים מאוד</td><td>חלק מצוות בית, משמרות ערב, תרבות, פרויקטים, טיפוח הכפר וליווי אישי.</td><td>בדף לא הופיע איש קשר ברור; לבדוק דרך האתר.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%92%d7%93%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">מוסינזון</td><td>השרון · הוד השרון</td><td>כפרי נוער</td><td>10</td><td class="fit-best">הכי מתאים</td><td>איש צוות צעיר, אח גדול, ליווי קבוצה, בית ספר, פעילויות ומשימות פנימייה.</td><td>לוודא אם מעדיפים קבוצת נעל״ה או ישראלים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%95%d7%a1%d7%99%d7%a0%d7%96%d7%95%d7%9f/">קישור</a></td></tr>
+        <tr><td class="name">מנוף</td><td>צפון · עכו</td><td>כפרי נוער</td><td>16</td><td class="fit-high">מתאים מאוד</td><td>משק חקלאי, ליווי ביתנים, חונכות אישית, קשרים אישיים והפקת פרויקטים.</td><td>אוכלוסייה מרקע מורכב; לבדוק רמת אינטנסיביות והכשרה.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a0%d7%95%d7%a3/">קישור</a></td></tr>
+        <tr><td class="name">נווה אלישע</td><td>השרון · גבעת עדה</td><td>פנימיות</td><td>10</td><td class="fit-high">מתאים מאוד</td><td>ש״ש במשפחתון, שיעורי בית, ליוויים, ישיבות, פעילויות כפריות ואירועי שיא.</td><td>יש ילדים צעירים לצד נוער; לבדוק שכבות גיל.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%90%d7%9c%d7%99%d7%a9%d7%a2/">קישור</a></td></tr>
+        <tr><td class="name">נווה הדסה</td><td>השרון · ליד תל יצחק</td><td>כפרי נוער</td><td>10</td><td class="fit-best">הכי מתאים</td><td>אח גדול, צוות פנימייה, בית ספר, משק, אירועים, לימודים ותכנים חינוכיים.</td><td>לבדוק שיבוץ בין פנימייה/בית ספר/משק.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a1%d7%94/">קישור</a></td></tr>
+        <tr><td class="name">נווה הדר</td><td>השרון · חבצלת השרון</td><td>פנימיות</td><td>11</td><td class="fit-high">מתאים מאוד</td><td>משפחתונים, שייכות לצוות הדרכה, פעילויות העשרה, שבתות, חגים וטקסים.</td><td>פנימייה טיפולית; לבדוק תמיכה רגשית לש״ש.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a8/">קישור</a></td></tr>
+        <tr><td class="name">נירים</td><td>צפון · בוסתן הגליל</td><td>כפרי נוער</td><td>19</td><td class="fit-high">מתאים מאוד</td><td>דמות זמינה ומעצימה, ליווי בפנימייה, בבית הספר ובחוגים, ישיבות סגל ופעילות שטח.</td><td>שגרה תובענית עם מסעות ושטח; מתאים אם אתה רוצה אתגר חזק.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%99%d7%a8%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">נירים במדבר</td><td>צפון · בוסתן הגליל</td><td>פנימיות</td><td>12</td><td class="fit-high">מתאים מאוד</td><td>נוכחות בכל היום, חוגים, בית ספר, שיחות, משברים, פעילות ימית ומסעות שטח.</td><td>דורש חוסן פיזי ונפשי; מתאים למי שרוצה שטח ואתגר.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%99%d7%a8%d7%99%d7%9d-%d7%91%d7%9e%d7%93%d7%91%d7%a8/">קישור</a></td></tr>
+        <tr><td class="name">עיינות</td><td>מרכז · מ.א. גן רווה</td><td>כפרי נוער</td><td>14</td><td class="fit-high">מתאים מאוד</td><td>איש צוות ואח בוגר, פנימייה, משק חקלאי, פרויקטים, אירועים ושיחות ליווי.</td><td>לשאול מה חלוקת הזמן בין פנימייה למשק.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%99%d7%99%d7%a0%d7%95%d7%aa/">קישור</a></td></tr>
+        <tr><td class="name">עלומים</td><td>מרכז · כפר סבא</td><td>פנימיות</td><td>10</td><td class="fit-high">מתאים מאוד</td><td>דמות מיטיבה, שותפות בצוות, הקשבה, משחק, השכבה, גבולות ופעילויות קומונה.</td><td>עבודה קשה ומסורה; לבדוק גבולות אחריות.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%9c%d7%95%d7%9e%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">עתיד רזיאל</td><td>מרכז · הרצליה</td><td>כפרי נוער</td><td>10</td><td class="fit-best">הכי מתאים</td><td>צוות קבוצה, אח בוגר, שיחות, לימודים, פעילויות, משק, קבלות שבת ואירועים.</td><td>לבדוק קבוצות נעל״ה לעומת קבוצות אחרות.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%aa%d7%99%d7%93-%d7%a8%d7%96%d7%99%d7%90%d7%9c/">קישור</a></td></tr>
+        <tr><td class="name">רננים</td><td>צפון · זיכרון יעקב</td><td>פנימיות</td><td>10</td><td class="fit-check">לבדיקה</td><td>בדף נכתב שהתפקיד חינוכי ושווה בצוות ההדרכה, אבל הפירוט קצר מאוד.</td><td>לשאול מה סדר היום ומה מידת העבודה הישירה עם חניכים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a8%d7%a0%d7%a0%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">שבילים</td><td>השרון · מדרשת רופין</td><td>פנימיות</td><td>10</td><td class="fit-high">מתאים מאוד</td><td>קשר אישי עמוק, דמות יציבה, תמיכה ברגעי משבר, פעילות יומיומית ואווירה.</td><td>מסגרת טיפולית-פוסט אשפוזית; לבדוק התאמה רגשית.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a9%d7%91%d7%99%d7%9c%d7%99%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">תל ברוך</td><td>מרכז · תל אביב</td><td>פנימיות</td><td>14</td><td class="fit-high">מתאים מאוד</td><td>ליווי קבוצה מהבוקר עד הלילה, לימודים, חוגים, ארוחות, ליוויים והשכבות.</td><td>ש״ש מסייע למדריכים ולא אחראי משמעתית; טוב לוודא גבולות תפקיד.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%aa%d7%9c-%d7%91%d7%a8%d7%95%d7%9a/">קישור</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>כל השאר שלא נכנסו ולמה</h2>
+    <p>אלה המסגרות שהופיעו בארבעת עמודי הטבלה המסוננת, אבל לא נכנסו לרשימה הראשית.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>שם</th>
+          <th>אזור ומיקום</th>
+          <th>סיווג</th>
+          <th>ש״שינים</th>
+          <th>למה לא נכנס</th>
+          <th>מקור</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">אלוני יצחק</td><td>מרכז · גבעת עדה</td><td>כפרי נוער</td><td>14</td><td>אתה חניך שם, ולכן אי אפשר לבחור את המסגרת הזאת לשנת שירות.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%9c%d7%95%d7%a0%d7%99-%d7%99%d7%a6%d7%97%d7%a7/">קישור</a></td></tr>
+        <tr><td class="name">אודם</td><td>צפון · קצרין</td><td>כפרי נוער</td><td>5</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%95%d7%93%d7%9d/">קישור</a></td></tr>
+        <tr><td class="name">בית הילד</td><td>מרכז · תל אביב</td><td>פנימיות</td><td>6</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%94%d7%99%d7%9c%d7%93/">קישור</a></td></tr>
+        <tr><td class="name">בית טף</td><td>צפון · פרדס חנה</td><td>פנימיות</td><td>8</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%98%d7%a3/">קישור</a></td></tr>
+        <tr><td class="name">דארנא</td><td>השרון · מכללת רופין, עמק חפר</td><td>פנימיות</td><td>6</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%93%d7%90%d7%a8%d7%a0%d7%90/">קישור</a></td></tr>
+        <tr><td class="name">דרך גבת</td><td>צפון · קיבוץ גבת</td><td>פנימיות</td><td>8</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%93%d7%a8%d7%9a-%d7%92%d7%91%d7%aa/">קישור</a></td></tr>
+        <tr><td class="name">המחלקה לילדים ונוער בסיכון</td><td>צפון · גליל מערבי</td><td>פנימיות</td><td>6</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%9e%d7%97%d7%9c%d7%a7%d7%94-%d7%9c%d7%99%d7%9c%d7%93%d7%99%d7%9d-%d7%95%d7%a0%d7%95%d7%a2%d7%a8-%d7%91%d7%a1%d7%99%d7%9b%d7%95%d7%9f/">קישור</a></td></tr>
+        <tr><td class="name">הפרדס</td><td>צפון · פרדס חנה</td><td>פנימיות</td><td>8</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%a4%d7%a8%d7%93%d7%a1/">קישור</a></td></tr>
+        <tr><td class="name">ויצ״ו גן ונוף</td><td>מרכז · פתח תקווה</td><td>כפרי נוער</td><td>8</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%92%d7%9f-%d7%95%d7%a0%d7%95%d7%a3/">קישור</a></td></tr>
+        <tr><td class="name">ויצ״ו נהלל</td><td>צפון · כפר הנוער ויצ״ו נהלל</td><td>כפרי נוער</td><td>9</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%a0%d7%94%d7%9c%d7%9c/">קישור</a></td></tr>
+        <tr><td class="name">מבואות עירון</td><td>מרכז · עין שמר</td><td>פנימיות</td><td>6</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%91%d7%95%d7%90%d7%95%d7%aa-%d7%a2%d7%99%d7%a8%d7%95%d7%9f/">קישור</a></td></tr>
+        <tr><td class="name">מוסד חינוכי שומריה</td><td>צפון · משמר העמק</td><td>פנימיות</td><td>8</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%95%d7%a1%d7%93-%d7%97%d7%99%d7%a0%d7%95%d7%9b%d7%99-%d7%a9%d7%95%d7%9e%d7%a8%d7%99%d7%94/">קישור</a></td></tr>
+        <tr><td class="name">מלכישוע</td><td>צפון · פסגת הר הגלבוע</td><td>כפרי נוער</td><td>9</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%9c%d7%9b%d7%99%d7%a9%d7%95%d7%a2/">קישור</a></td></tr>
+        <tr><td class="name">מקוה ישראל</td><td>מרכז · חולון</td><td>כפרי נוער</td><td>8</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a7%d7%95%d7%94-%d7%99%d7%a9%d7%a8%d7%90%d7%9c/">קישור</a></td></tr>
+        <tr><td class="name">מקווה ישראל משק</td><td>מרכז</td><td>כפרי נוער</td><td>8</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a7%d7%95%d7%95%d7%94-%d7%99%d7%a9%d7%a8%d7%90%d7%9c-%d7%9e%d7%a9%d7%a7/">קישור</a></td></tr>
+        <tr><td class="name">מרכז חירום אהבה</td><td>צפון · כפר ביאליק</td><td>פנימיות</td><td>9</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a8%d7%9b%d7%96-%d7%97%d7%99%d7%a8%d7%95%d7%9d-%d7%90%d7%94%d7%91%d7%94/">קישור</a></td></tr>
+        <tr><td class="name">נווה הדסה - קומונת משק</td><td>השרון · נווה הדסה</td><td>כפרי נוער</td><td>4</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a1%d7%94-%d7%a7%d7%95%d7%9e%d7%95%d7%a0%d7%aa-%d7%9e%d7%a9%d7%a7/">קישור</a></td></tr>
+        <tr><td class="name">רבדים</td><td>השרון · נתניה</td><td>פנימיות</td><td>6</td><td>מתחת למינימום שביקשת: פחות מ-10 ש״שינים.</td><td><a href="https://www.sherut-kibbutz.com/voluntary/%d7%a8%d7%91%d7%93%d7%99%d7%9d/">קישור</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>שאלות טובות לשאול בכנס/בשיחה</h2>
+    <div class="chips">
+      <span class="chip">לאיזו קבוצת גיל משובצים?</span>
+      <span class="chip">כמה שעות ביום נמצאים עם החניכים?</span>
+      <span class="chip">האם הש״ש עוסק במשמעת או רק בליווי?</span>
+      <span class="chip">כמה הדרכה וליווי רגשי מקבלים?</span>
+      <span class="chip">כמה עבודה חקלאית/פיזית יש?</span>
+      <span class="chip">מה עושים בשבתות וחגים?</span>
+      <span class="chip">כמה מקום יש ליוזמות אישיות?</span>
+      <span class="chip">כמה הש״ש חלק מצוות ההדרכה?</span>
+    </div>
+  </section>
+
+  <details>
+    <summary>כנסי התמיינות שהאתר הציג</summary>
+    <div class="note">העתקתי כאן את התאריכים כפי שהופיעו באתר. חלקם עברו וחלקם דורשים בדיקה מחדש מול המסגרת.</div>
+    <div class="conference-list">
+      <p><strong>אהבה:</strong> 26/12/2025-27/12/2025, 09/01/2026-10/01/2026, 23/01/2026-24/01/2026, 06/02/2026-07/02/2026.</p>
+      <p><strong>אחוזת ילדים:</strong> 25/12/2025, 08/01/2026.</p>
+      <p><strong>בית אפל:</strong> 25/12/2025-27/12/2025, 08/01/2026-10/01/2026.</p>
+      <p><strong>בית רות:</strong> 08/01/2026-09/01/2026, 22/01/2026-23/01/2026, 05/02/2026-06/02/2026.</p>
+      <p><strong>בן שמן:</strong> 02/01/2026-03/01/2026, 09/01/2026-10/01/2026.</p>
+      <p><strong>האורנים:</strong> 08/01/2026-09/01/2026, 22/01/2026-23/01/2026.</p>
+      <p><strong>הבית לילד - בית זינגר:</strong> 25/12/2025-26/12/2025, 08/01/2026-09/01/2026, 22/01/2026-23/01/2026.</p>
+      <p><strong>הכפר הירוק:</strong> 02/01/2026-03/01/2026.</p>
+      <p><strong>ויצ״ו הדסים:</strong> 25/12/2025, 08/01/2026.</p>
+      <p><strong>ויצ״ו ניר העמק:</strong> 07/01/2027-08/01/2026, 21/01/2027-22/01/2027. מופיע חוסר עקביות בתאריך הראשון.</p>
+      <p><strong>טוביה:</strong> 25/12/2025-27/12/2025, 08/01/2026-10/01/2026, 22/01/2026-24/01/2026.</p>
+      <p><strong>טוקאייר:</strong> 15/01/2026, 12/02/2026.</p>
+      <p><strong>כדורי:</strong> 14/01/2027-16/01/2027.</p>
+      <p><strong>כנות:</strong> 07/01/2027-08/01/2027, 08/01/2027-09/01/2027.</p>
+      <p><strong>כפר גלים:</strong> 01/01/2026-02/01/2026, 15/01/2026-16/01/2026.</p>
+      <p><strong>כפר הנוער מאיר שפיה:</strong> 21/01/2027-22/01/2027, 28/01/2027-29/01/2027.</p>
+      <p><strong>מגדים:</strong> 15/01/2026-16/01/2026, 29/01/2026-30/01/2026, 09/02/2026.</p>
+      <p><strong>מוסינזון:</strong> 08/01/2026-09/01/2026.</p>
+      <p><strong>מנוף:</strong> 25/12/2025-26/12/2025, 01/01/2026-02/01/2026, 08/01/2026-09/01/2026.</p>
+      <p><strong>נווה אלישע:</strong> 15/01/2026-15/01/2025, 19/02/2026. מופיע חוסר עקביות בתאריך הראשון.</p>
+      <p><strong>נווה הדסה:</strong> 01/01/2026, 29/01/2026.</p>
+      <p><strong>נווה הדר:</strong> 01/01/2026-02/01/2026, 15/01/2026-16/01/2026.</p>
+      <p><strong>נירים:</strong> 08/01/2026-09/01/2026.</p>
+      <p><strong>נירים במדבר:</strong> 25/12/2025, 01/01/2026.</p>
+      <p><strong>עיינות:</strong> 08/01/2026-09/01/2026, 15/01/2026-16/01/2026.</p>
+      <p><strong>עלומים:</strong> 25/12/2025, 08/01/2026, 22/01/2026.</p>
+      <p><strong>עתיד רזיאל:</strong> 25/12/2025-26/12/2025, 15/01/2026-16/01/2026.</p>
+      <p><strong>רננים:</strong> 29/01/2026.</p>
+      <p><strong>שבילים:</strong> 01/01/2026, 15/01/2026.</p>
+      <p><strong>תל ברוך:</strong> 08/01/2026, 15/01/2026, 22/01/2026.</p>
+    </div>
+  </details>
+</main>
+</body>
+</html>
