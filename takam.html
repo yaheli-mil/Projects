@@ -12,32 +12,42 @@
 
   <style>
     :root {
-      --bg-page: #f5f5f7;
+      --bg-page: #f4f1ea;
       --bg-surface: #ffffff;
-      --bg-surface-secondary: #fafafc;
-      --bg-nav: rgba(255, 255, 255, 0.85);
-      
-      --text-primary: #1d1d1f;
-      --text-secondary: #6e6e73;
-      --text-tertiary: #86868b;
-      
-      --accent: #0071e3;
-      --accent-hover: #0077ed;
-      --accent-subtle: #f0f6fc;
-      
-      --border-subtle: #e5e5ea;
-      --border-light: #d2d2d7;
-      
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 18px;
-      --radius-pill: 980px;
-      
-      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
-      --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
-      --shadow-popup: 0 16px 48px rgba(0, 0, 0, 0.16);
-      
-      --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      --bg-surface-secondary: #faf8f3;
+      --bg-nav: rgba(255, 255, 255, 0.78);
+      --bg-muted: #efebe1;
+      --bg-muted-hover: #e6e1d3;
+
+      --text-primary: #17261f;
+      --text-secondary: #55645c;
+      --text-tertiary: #84918a;
+
+      --brand: #1f5d4a;
+      --brand-dark: #103c2f;
+      --brand-deep: #0b2a21;
+      --brand-soft: #e3efe9;
+      --accent: #1f5d4a;
+      --accent-hover: #174a3b;
+      --accent-subtle: #e3efe9;
+      --amber: #e9a53b;
+      --amber-soft: #fbefd5;
+      --amber-ink: #8a5a0b;
+
+      --border-subtle: #e6e1d4;
+      --border-light: #d3ccb9;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-xl: 30px;
+      --radius-pill: 999px;
+
+      --shadow-card: 0 1px 2px rgba(23, 38, 31, 0.04), 0 4px 14px rgba(23, 38, 31, 0.04);
+      --shadow-hover: 0 2px 4px rgba(23, 38, 31, 0.05), 0 18px 40px rgba(23, 38, 31, 0.12);
+      --shadow-popup: 0 24px 64px rgba(11, 42, 33, 0.28);
+
+      --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after {
@@ -48,150 +58,221 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 88px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Rubik", sans-serif;
+      font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: var(--bg-page);
+      background-image:
+        radial-gradient(900px 480px at 85% -80px, rgba(31, 93, 74, 0.10), transparent 70%),
+        radial-gradient(700px 400px at 0% 20%, rgba(233, 165, 59, 0.08), transparent 70%);
+      background-repeat: no-repeat;
       color: var(--text-primary);
-      line-height: 1.55;
+      line-height: 1.6;
       min-height: 100vh;
     }
 
+    ::selection { background: var(--amber); color: var(--brand-deep); }
+
+    :focus-visible {
+      outline: 3px solid rgba(233, 165, 59, 0.7);
+      outline-offset: 2px;
+    }
+
+    /* ---------- Nav ---------- */
     .apple-nav {
       position: sticky;
-      top: 0;
+      top: 12px;
       z-index: 100;
-      background: var(--bg-nav);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-subtle);
-      height: 52px;
+      margin: 12px auto 0;
+      width: calc(100% - 32px);
+      max-width: 1160px;
+      height: 58px;
       display: flex;
       align-items: center;
+      background: var(--bg-nav);
+      backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: var(--radius-pill);
+      box-shadow: 0 6px 24px rgba(23, 38, 31, 0.10), 0 0 0 1px var(--border-subtle);
     }
 
     .nav-inner {
-      max-width: 1120px;
       width: 100%;
-      margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 12px 0 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
     }
 
     .nav-brand {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 10px;
       text-decoration: none;
       color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .nav-brand::before {
+      content: "";
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-deep) 100%);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18);
+      flex: none;
     }
 
     .nav-title {
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 0.98rem;
+      font-weight: 700;
       letter-spacing: -0.01em;
     }
 
     .nav-author {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-tertiary);
     }
 
     .nav-menu {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 2px;
       list-style: none;
     }
 
     .nav-item a {
+      display: block;
+      padding: 7px 13px;
+      border-radius: var(--radius-pill);
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.84rem;
+      font-size: 0.86rem;
+      font-weight: 500;
+      white-space: nowrap;
       transition: var(--transition);
     }
 
     .nav-item a:hover {
-      color: var(--text-primary);
+      color: var(--brand-dark);
+      background: var(--brand-soft);
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn-portfolio {
       color: var(--text-secondary);
       text-decoration: none;
       font-size: 0.82rem;
+      white-space: nowrap;
       transition: var(--transition);
     }
 
-    .btn-portfolio:hover {
-      color: var(--accent);
-    }
+    .btn-portfolio:hover { color: var(--brand); }
 
     .btn-nav-chat {
-      background: var(--text-primary);
+      background: var(--brand);
       color: #ffffff;
       border: none;
-      padding: 6px 14px;
+      padding: 9px 18px;
       border-radius: var(--radius-pill);
-      font-size: 0.82rem;
-      font-weight: 500;
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      white-space: nowrap;
       transition: var(--transition);
     }
 
     .btn-nav-chat:hover {
-      background: #333336;
-      transform: scale(1.02);
+      background: var(--brand-dark);
+      transform: translateY(-1px);
     }
 
+    /* ---------- Layout / Hero ---------- */
     .apple-container {
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 56px 24px 100px;
+      padding: 28px 16px 110px;
     }
 
     .hero {
-      margin-bottom: 56px;
-      padding-bottom: 36px;
-      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 28px;
+      padding: 56px 52px 44px;
+      border-radius: var(--radius-xl);
+      color: #fff;
+      background:
+        radial-gradient(600px 320px at 12% 0%, rgba(233, 165, 59, 0.22), transparent 65%),
+        radial-gradient(700px 420px at 100% 100%, rgba(75, 160, 128, 0.35), transparent 60%),
+        linear-gradient(145deg, var(--brand) 0%, var(--brand-dark) 55%, var(--brand-deep) 100%);
+      box-shadow: 0 24px 60px rgba(11, 42, 33, 0.28);
     }
 
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1.4px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(200deg, #000 0%, transparent 55%);
+      -webkit-mask-image: linear-gradient(200deg, #000 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
     .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      font-weight: 500;
+      color: #fbe7bd;
+    }
+
+    .hero-eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 0 4px rgba(233, 165, 59, 0.25);
     }
 
     .hero-headline {
-      font-size: 3.2rem;
-      font-weight: 700;
-      line-height: 1.1;
+      font-size: clamp(2.3rem, 5.4vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
       letter-spacing: -0.03em;
-      color: var(--text-primary);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      max-width: 14em;
     }
 
     .hero-subhead {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
-      max-width: 820px;
+      font-size: 1.12rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 700px;
       font-weight: 400;
       margin-bottom: 40px;
     }
@@ -199,64 +280,85 @@
     .metrics-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border-subtle);
+      gap: 14px;
     }
 
     .metric-cell {
       display: flex;
       flex-direction: column;
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
     .metric-num {
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: 2.6rem;
+      font-weight: 800;
       letter-spacing: -0.03em;
-      color: var(--text-primary);
       line-height: 1;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      color: #fff;
+      direction: ltr;
+      text-align: right;
     }
+
+    .metric-cell:nth-child(2) .metric-num { color: var(--amber); }
 
     .metric-caption {
       font-size: 0.82rem;
-      color: var(--text-tertiary);
-      font-weight: 400;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.4;
     }
 
+    /* ---------- Toolbar ---------- */
     .toolbar {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      margin-bottom: 48px;
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-bottom: 56px;
       box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .search-wrap {
-      position: relative;
+    .search-wrap { position: relative; }
+
+    .search-wrap::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      width: 18px;
+      height: 18px;
+      transform: translateY(-50%);
+      background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2384918a' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+      pointer-events: none;
     }
 
     .search-input {
       width: 100%;
-      padding: 12px 18px;
+      padding: 13px 46px 13px 18px;
       background: var(--bg-page);
-      border: 1px solid transparent;
-      border-radius: var(--radius-sm);
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-md);
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--text-primary);
       outline: none;
       transition: var(--transition);
     }
 
+    .search-input::placeholder { color: var(--text-tertiary); }
+
     .search-input:focus {
-      background: #ffffff;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
+      background: #fff;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px rgba(31, 93, 74, 0.12);
     }
 
     .chips-group {
@@ -267,26 +369,29 @@
     }
 
     .pill {
-      padding: 6px 14px;
+      padding: 7px 15px;
       border-radius: var(--radius-pill);
-      background: var(--bg-page);
-      border: 1px solid transparent;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 500;
       cursor: pointer;
       transition: var(--transition);
       user-select: none;
+      white-space: nowrap;
     }
 
     .pill:hover {
-      background: #e8e8ed;
-      color: var(--text-primary);
+      border-color: var(--brand);
+      color: var(--brand);
     }
 
     .pill.active {
-      background: var(--text-primary);
+      background: var(--brand);
+      border-color: var(--brand);
       color: #ffffff;
+      box-shadow: 0 4px 12px rgba(31, 93, 74, 0.3);
     }
 
     .status-counter {
@@ -295,45 +400,53 @@
       margin-right: auto;
     }
 
+    /* ---------- Sections ---------- */
+    section[id] { margin-bottom: 20px; }
+
     .section-head {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      padding-right: 18px;
+      border-right: 4px solid var(--amber);
     }
 
     .section-label {
       font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
+      font-weight: 700;
+      color: var(--brand);
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
     }
 
     .section-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
       color: var(--text-primary);
       margin-bottom: 8px;
     }
 
     .section-desc {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--text-secondary);
       max-width: 720px;
     }
 
+    /* ---------- Top cards ---------- */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-      gap: 20px;
-      margin-bottom: 64px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 22px;
+      margin-bottom: 72px;
     }
 
     .apple-card {
+      position: relative;
+      overflow: hidden;
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 24px;
+      padding: 26px 24px 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -341,130 +454,159 @@
       transition: var(--transition);
     }
 
+    .apple-card::before {
+      content: "";
+      position: absolute;
+      top: 0; right: 0; left: 0;
+      height: 5px;
+      background: var(--border-light);
+    }
+
+    .apple-card:has(.badge-best)::before { background: linear-gradient(90deg, #2e8b6c, var(--brand)); }
+    .apple-card:has(.badge-high)::before { background: linear-gradient(90deg, #4b8fd0, #2f6db0); }
+    .apple-card:has(.badge-check)::before { background: linear-gradient(90deg, var(--amber), #d98c17); }
+
     .apple-card:hover {
       border-color: var(--border-light);
       box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
+      transform: translateY(-4px);
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       gap: 12px;
     }
 
     .card-meta {
       display: flex;
-      flex-direction: column;
-      gap: 2px;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
     }
 
     .card-rank {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-tertiary);
-      letter-spacing: 0.02em;
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: var(--bg-muted);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--brand-dark);
+      font-variant-numeric: tabular-nums;
     }
 
     .card-sub {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
+      line-height: 1.4;
     }
 
-    .apple-badge {
+    .apple-badge,
+    .table-badge {
+      display: inline-block;
       font-size: 0.74rem;
-      font-weight: 600;
-      padding: 4px 10px;
+      font-weight: 700;
+      padding: 4px 11px;
       border-radius: var(--radius-pill);
       white-space: nowrap;
     }
 
-    .badge-best {
-      background: #eaf5ed;
-      color: #1e7e34;
-    }
-
-    .badge-high {
-      background: var(--accent-subtle);
-      color: var(--accent);
-    }
-
-    .badge-check {
-      background: #fbf0dc;
-      color: #8b5e12;
-    }
+    .badge-best  { background: #dcf1e6; color: #146b46; }
+    .badge-high  { background: #e0ecfa; color: #24598f; }
+    .badge-check { background: var(--amber-soft); color: var(--amber-ink); }
 
     .card-name {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
       color: var(--text-primary);
       margin-bottom: 16px;
     }
 
     .card-stats-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      background: var(--bg-page);
-      border-radius: var(--radius-sm);
-      padding: 10px 14px;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 0;
+      background: var(--bg-surface-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
       margin-bottom: 16px;
+      overflow: hidden;
     }
 
     .stat-col {
       display: flex;
       flex-direction: column;
+      gap: 2px;
+      padding: 11px 14px;
     }
 
+    .stat-col + .stat-col { border-right: 1px solid var(--border-subtle); }
+
     .stat-label {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--text-tertiary);
+      font-weight: 500;
     }
 
     .stat-value {
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.92rem;
+      font-weight: 700;
       color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .stat-col:last-child .stat-value {
+      direction: ltr;
+      unicode-bidi: isolate;
+      text-align: right;
+      font-size: 0.82rem;
+      font-variant-numeric: tabular-nums;
     }
 
     .card-desc {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.7;
       margin-bottom: 14px;
       flex: 1;
     }
 
     .card-note {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      background: #fdfdfd;
-      border: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+      color: var(--amber-ink);
+      background: var(--amber-soft);
       border-radius: var(--radius-sm);
-      padding: 8px 12px;
-      line-height: 1.5;
+      padding: 10px 14px;
+      line-height: 1.55;
       margin-bottom: 18px;
     }
 
     .note-label {
-      font-weight: 600;
-      color: var(--text-primary);
+      font-weight: 700;
+      color: #6d4505;
     }
 
     .card-footer {
-      border-top: 1px solid var(--border-subtle);
+      border-top: 1px dashed var(--border-light);
       padding-top: 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .card-tags-text {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       color: var(--text-tertiary);
+      line-height: 1.6;
     }
 
     .card-actions {
@@ -474,111 +616,126 @@
 
     .btn-apple-primary {
       flex: 1;
-      background: var(--accent);
+      background: var(--brand);
       color: #ffffff;
       border: none;
-      padding: 8px 14px;
+      padding: 10px 14px;
       border-radius: var(--radius-pill);
-      font-size: 0.84rem;
-      font-weight: 500;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
       cursor: pointer;
       text-align: center;
       transition: var(--transition);
     }
 
     .btn-apple-primary:hover {
-      background: var(--accent-hover);
+      background: var(--brand-dark);
+      box-shadow: 0 6px 16px rgba(31, 93, 74, 0.3);
     }
 
     .btn-apple-secondary {
-      padding: 8px 14px;
+      padding: 10px 16px;
       border-radius: var(--radius-pill);
-      background: var(--bg-page);
-      border: 1px solid transparent;
+      background: transparent;
+      border: 1.5px solid var(--border-light);
       color: var(--text-primary);
       text-decoration: none;
-      font-size: 0.84rem;
-      font-weight: 500;
+      font-size: 0.88rem;
+      font-weight: 600;
       text-align: center;
+      white-space: nowrap;
       transition: var(--transition);
     }
 
     .btn-apple-secondary:hover {
-      background: #e8e8ed;
+      border-color: var(--brand);
+      color: var(--brand);
+      background: var(--brand-soft);
     }
 
+    /* ---------- Table ---------- */
     .table-wrapper {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      overflow-x: auto;
-      margin-bottom: 64px;
+      border-radius: var(--radius-lg);
+      overflow: auto;
+      max-height: 78vh;
+      margin-bottom: 72px;
       box-shadow: var(--shadow-card);
     }
 
     .apple-table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       text-align: right;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
     }
 
     .apple-table th {
-      background: var(--bg-surface-secondary);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--brand-deep);
+      padding: 14px 16px;
       font-weight: 600;
       font-size: 0.78rem;
-      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      color: rgba(255, 255, 255, 0.85);
       white-space: nowrap;
     }
 
     .apple-table td {
-      padding: 14px 16px;
+      padding: 16px;
       border-bottom: 1px solid var(--border-subtle);
       color: var(--text-secondary);
       vertical-align: middle;
     }
 
-    .apple-table tr:last-child td {
-      border-bottom: none;
-    }
+    .apple-table tbody tr:nth-child(even) td { background: var(--bg-surface-secondary); }
+    .apple-table tbody tr:hover td { background: var(--brand-soft); }
+    .apple-table tr:last-child td { border-bottom: none; }
 
-    .apple-table tr:hover {
-      background: #fbfbfd;
-    }
+    .col-name { min-width: 170px; }
+    .col-count { font-weight: 800; color: var(--text-primary); font-size: 1rem; text-align: center; }
 
     .name-main {
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-primary);
-      font-size: 0.92rem;
+      font-size: 0.98rem;
     }
 
     .name-sub {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       color: var(--text-tertiary);
     }
 
     .top-indicator {
-      color: var(--accent);
-      font-size: 0.65rem;
+      color: var(--amber);
+      font-size: 0.7rem;
       vertical-align: middle;
     }
 
     .cell-clamp {
-      max-width: 240px;
-      line-height: 1.45;
-      font-size: 0.82rem;
+      min-width: 200px;
+      max-width: 280px;
+      line-height: 1.55;
+      font-size: 0.84rem;
     }
 
-    .text-subtle {
-      color: var(--text-tertiary);
-    }
+    .text-subtle { color: var(--text-tertiary); }
 
     .dates-text {
-      font-size: 0.78rem;
+      display: inline-block;
+      direction: ltr;
+      unicode-bidi: isolate;
+      text-align: right;
+      font-size: 0.8rem;
       color: var(--text-primary);
-      white-space: nowrap;
+      line-height: 1.6;
+      font-variant-numeric: tabular-nums;
+      min-width: 130px;
     }
 
     .action-btns {
@@ -587,48 +744,54 @@
     }
 
     .apple-icon-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: var(--radius-sm);
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
       border: 1px solid var(--border-subtle);
-      background: var(--bg-page);
+      background: #fff;
       color: var(--text-primary);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
       text-decoration: none;
       transition: var(--transition);
     }
 
     .apple-icon-btn:hover {
-      background: #e8e8ed;
-      border-color: var(--border-light);
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+      transform: translateY(-1px);
     }
 
+    /* ---------- Excluded ---------- */
     .excluded-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 16px;
-      margin-bottom: 64px;
+      margin-bottom: 72px;
     }
 
     .ex-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 18px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
       box-shadow: var(--shadow-card);
+      transition: var(--transition);
     }
 
+    .ex-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+
     .highlight-ex {
-      border-color: var(--border-light);
-      background: #fffdfa;
+      border-color: #f0d49a;
+      background: linear-gradient(135deg, #fffaf0, #fff);
       grid-column: 1 / -1;
     }
 
@@ -640,8 +803,8 @@
     }
 
     .ex-title {
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 1.05rem;
+      font-weight: 700;
       color: var(--text-primary);
     }
 
@@ -652,102 +815,118 @@
 
     .ex-tag {
       font-size: 0.72rem;
-      padding: 3px 8px;
+      font-weight: 600;
+      padding: 3px 10px;
       border-radius: var(--radius-pill);
-      background: var(--bg-page);
+      background: var(--bg-muted);
       color: var(--text-secondary);
       white-space: nowrap;
     }
 
+    .highlight-ex .ex-tag { background: var(--amber-soft); color: var(--amber-ink); }
+
     .ex-body {
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .ex-footer {
-      border-top: 1px solid var(--border-subtle);
+      border-top: 1px dashed var(--border-light);
       padding-top: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
     }
 
-    .ex-count {
-      color: var(--text-tertiary);
-    }
+    .ex-count { color: var(--text-tertiary); }
 
     .ex-link {
-      color: var(--accent);
+      color: var(--brand);
+      font-weight: 600;
       text-decoration: none;
     }
 
+    .ex-link:hover { text-decoration: underline; }
+
+    /* ---------- Questions ---------- */
     .questions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
       gap: 16px;
-      margin-bottom: 64px;
+      margin-bottom: 72px;
     }
 
     .question-tile {
+      position: relative;
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 20px;
+      border-radius: var(--radius-lg);
+      padding: 22px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
       box-shadow: var(--shadow-card);
       transition: var(--transition);
     }
 
     .question-tile:hover {
-      border-color: var(--border-light);
+      border-color: var(--brand);
       box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
     }
 
     .q-top {
       display: flex;
-      gap: 10px;
-      align-items: baseline;
+      gap: 12px;
+      align-items: flex-start;
     }
 
     .q-num {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-tertiary);
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--amber-soft);
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--amber-ink);
     }
 
     .q-text {
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 700;
       color: var(--text-primary);
       line-height: 1.4;
+      padding-top: 3px;
     }
 
     .q-tip {
-      font-size: 0.82rem;
+      font-size: 0.86rem;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.65;
     }
 
     .q-cta {
-      font-size: 0.78rem;
-      color: var(--accent);
-      font-weight: 500;
+      font-size: 0.82rem;
+      color: var(--brand);
+      font-weight: 600;
       text-align: left;
     }
 
+    /* ---------- Conferences ---------- */
     .conf-list {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px 20px;
-      margin-bottom: 64px;
+      border-radius: var(--radius-lg);
+      padding: 8px 24px;
+      margin-bottom: 72px;
       box-shadow: var(--shadow-card);
     }
 
@@ -755,87 +934,104 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
+      padding: 16px 0;
       border-bottom: 1px solid var(--border-subtle);
-      gap: 12px;
-      font-size: 0.86rem;
+      gap: 16px;
+      font-size: 0.9rem;
     }
 
-    .conf-item:last-child {
-      border-bottom: none;
-    }
+    .conf-item:last-child { border-bottom: none; }
 
     .conf-left {
       display: flex;
-      align-items: baseline;
-      gap: 8px;
+      align-items: center;
+      gap: 10px;
+      flex: none;
     }
 
     .conf-name {
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-primary);
     }
 
     .conf-region {
-      font-size: 0.78rem;
-      color: var(--text-tertiary);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--brand-soft);
+      color: var(--brand);
     }
 
     .conf-right {
       display: flex;
       align-items: center;
       gap: 14px;
+      min-width: 0;
     }
 
     .conf-date {
+      direction: ltr;
+      unicode-bidi: isolate;
+      text-align: left;
       color: var(--text-secondary);
       font-size: 0.82rem;
+      line-height: 1.6;
+      font-variant-numeric: tabular-nums;
     }
 
     .btn-conf {
-      background: var(--bg-page);
-      border: 1px solid transparent;
-      padding: 4px 10px;
+      flex: none;
+      background: var(--bg-muted);
+      border: none;
+      padding: 7px 14px;
       border-radius: var(--radius-pill);
-      font-size: 0.75rem;
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
       color: var(--text-primary);
       cursor: pointer;
       transition: var(--transition);
     }
 
-    .btn-conf:hover {
-      background: #e8e8ed;
+    .btn-conf:hover { background: var(--brand); color: #fff; }
+
+    /* ---------- Footer ---------- */
+    .apple-footer {
+      background: var(--brand-deep);
+      padding: 40px 24px 48px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.86rem;
     }
 
-    .apple-footer {
-      border-top: 1px solid var(--border-subtle);
-      padding: 32px 24px;
-      text-align: center;
-      color: var(--text-tertiary);
-      font-size: 0.82rem;
-    }
+    .apple-footer strong { color: #fff; font-weight: 600; }
 
     .apple-footer a {
-      color: var(--accent);
+      color: var(--amber);
       text-decoration: none;
     }
 
+    .apple-footer a:hover { text-decoration: underline; }
+
+    /* ---------- Chat ---------- */
     .chat-popup {
       position: fixed;
-      bottom: 86px;
+      bottom: 90px;
       left: 24px;
-      width: 390px;
+      width: 400px;
       max-width: calc(100vw - 32px);
-      height: 560px;
-      max-height: calc(100vh - 110px);
+      height: 580px;
+      max-height: calc(100vh - 120px);
       background: #ffffff;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-xl);
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-popup);
       display: flex;
       flex-direction: column;
       z-index: 1001;
       transform: translateY(20px) scale(0.95);
+      transform-origin: bottom left;
       opacity: 0;
       pointer-events: none;
       transition: var(--transition);
@@ -849,68 +1045,67 @@
     }
 
     .popup-header {
-      height: 54px;
-      background: #fbfbfd;
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 0 16px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      padding: 0 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: #fff;
     }
 
     .header-info {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .header-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      background: #34c759;
+      background: #5be29a;
+      box-shadow: 0 0 0 4px rgba(91, 226, 154, 0.25);
     }
 
     .header-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
     }
 
     .header-sub {
-      font-size: 0.72rem;
-      color: var(--text-tertiary);
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .header-btns {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .btn-header-action {
-      background: var(--bg-page);
+      background: rgba(255, 255, 255, 0.14);
       border: none;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      font-size: 0.75rem;
-      color: var(--text-secondary);
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-family: inherit;
+      font-size: 0.76rem;
+      color: #fff;
       cursor: pointer;
       transition: var(--transition);
     }
 
-    .btn-header-action:hover {
-      background: #e8e8ed;
-      color: var(--text-primary);
-    }
+    .btn-header-action:hover { background: rgba(255, 255, 255, 0.26); }
 
     .btn-close-popup {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--bg-page);
+      background: rgba(255, 255, 255, 0.14);
       border: none;
-      color: var(--text-secondary);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -919,27 +1114,24 @@
       transition: var(--transition);
     }
 
-    .btn-close-popup:hover {
-      background: #e8e8ed;
-      color: var(--text-primary);
-    }
+    .btn-close-popup:hover { background: rgba(255, 255, 255, 0.26); }
 
     .popup-messages {
       flex: 1;
       overflow-y: auto;
-      padding: 16px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      background: #fafafc;
+      background: var(--bg-page);
     }
 
     .msg-bubble {
-      max-width: 86%;
-      padding: 11px 15px;
-      border-radius: 16px;
-      font-size: 0.88rem;
-      line-height: 1.55;
+      max-width: 88%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 0.9rem;
+      line-height: 1.6;
       word-break: break-word;
     }
 
@@ -948,18 +1140,19 @@
       border: 1px solid var(--border-subtle);
       color: var(--text-primary);
       align-self: flex-start;
-      border-bottom-right-radius: 4px;
+      border-bottom-right-radius: 5px;
+      box-shadow: var(--shadow-card);
     }
 
     .msg-bubble.user {
-      background: var(--accent);
+      background: var(--brand);
       color: #ffffff;
       align-self: flex-end;
-      border-bottom-left-radius: 4px;
+      border-bottom-left-radius: 5px;
     }
 
     .msg-time {
-      font-size: 0.65rem;
+      font-size: 0.66rem;
       color: var(--text-tertiary);
       margin-top: 2px;
       padding: 0 4px;
@@ -969,7 +1162,7 @@
     .msg-time.user { align-self: flex-end; }
 
     .popup-suggestions {
-      padding: 8px 14px;
+      padding: 10px 14px;
       background: #ffffff;
       border-top: 1px solid var(--border-subtle);
       display: flex;
@@ -981,24 +1174,23 @@
     .popup-suggestions::-webkit-scrollbar { display: none; }
 
     .sugg-chip {
-      padding: 5px 11px;
+      padding: 6px 13px;
       border-radius: var(--radius-pill);
-      background: var(--bg-page);
+      background: var(--brand-soft);
       border: none;
-      font-size: 0.74rem;
-      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--brand-dark);
       white-space: nowrap;
       cursor: pointer;
       transition: var(--transition);
     }
 
-    .sugg-chip:hover {
-      background: #e8e8ed;
-      color: var(--text-primary);
-    }
+    .sugg-chip:hover { background: var(--brand); color: #fff; }
 
     .popup-input-bar {
-      padding: 10px 14px;
+      padding: 12px 14px;
       background: #ffffff;
       border-top: 1px solid var(--border-subtle);
       display: flex;
@@ -1007,77 +1199,99 @@
 
     .popup-text-input {
       flex: 1;
-      padding: 9px 14px;
-      border: 1px solid var(--border-subtle);
+      padding: 10px 16px;
+      border: 1.5px solid transparent;
       border-radius: var(--radius-pill);
       font-family: inherit;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       outline: none;
       background: var(--bg-page);
+      transition: var(--transition);
     }
 
     .popup-text-input:focus {
       background: #ffffff;
-      border-color: var(--accent);
+      border-color: var(--brand);
     }
 
     .btn-send-popup {
-      background: var(--accent);
+      background: var(--brand);
       color: #ffffff;
       border: none;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: var(--transition);
     }
 
-    .btn-send-popup:hover {
-      background: var(--accent-hover);
-    }
+    .btn-send-popup:hover { background: var(--brand-dark); transform: scale(1.06); }
 
     .apple-fab {
       position: fixed;
       bottom: 24px;
       left: 24px;
       z-index: 1000;
-      background: var(--text-primary);
-      color: #ffffff;
+      background: var(--amber);
+      color: var(--brand-deep);
       border: none;
-      padding: 10px 18px;
+      padding: 13px 22px;
       border-radius: var(--radius-pill);
       font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-size: 0.9rem;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+      box-shadow: 0 10px 28px rgba(233, 165, 59, 0.45);
       transition: var(--transition);
     }
 
     .apple-fab:hover {
-      background: #333336;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      background: #f2b552;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(233, 165, 59, 0.55);
     }
 
-    @media (max-width: 900px) {
-      .hero-headline { font-size: 2.4rem; }
-      .metrics-row { grid-template-columns: repeat(2, 1fr); }
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1000px) {
       .nav-menu { display: none; }
+      .btn-portfolio { display: none; }
+    }
+
+    @media (max-width: 720px) {
+      .apple-nav { top: 8px; margin-top: 8px; height: 54px; }
+      .nav-author { display: none; }
+      .hero { padding: 36px 22px 26px; border-radius: var(--radius-lg); }
+      .hero-subhead { font-size: 1rem; margin-bottom: 28px; }
+      .metrics-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .metric-cell { padding: 14px 16px; }
+      .metric-num { font-size: 2rem; }
+      .toolbar { margin-bottom: 40px; }
+      .chips-group { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+      .chips-group::-webkit-scrollbar { display: none; }
+      .status-counter { display: none; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .section-head { padding-right: 14px; }
+      .conf-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .conf-right { flex-direction: column; align-items: flex-start; gap: 10px; }
       .chat-popup {
-        left: 12px;
-        right: 12px;
+        left: 8px;
+        right: 8px;
         width: auto;
-        bottom: 80px;
-        height: calc(100vh - 100px);
+        bottom: 84px;
+        height: calc(100vh - 110px);
       }
+      .apple-fab { left: 16px; bottom: 16px; padding: 12px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
     }
   </style>
 </head>
@@ -1391,7 +1605,7 @@
             </div>
             <div class="stat-col">
               <span class="stat-label">כנסים ומיונים</span>
-              <span class="stat-value">25/12/2025-26/12/2025, 15/01/2026-16/01/2026</span>
+              <span class="stat-value">24/12/2026-25/12/2026, 14/01/2027-15/01/2027, 04/02/2027-05/02/2027</span>
             </div>
           </div>
 
@@ -1428,7 +1642,7 @@
           <div class="card-stats-row">
             <div class="stat-col">
               <span class="stat-label">קומונה</span>
-              <span class="stat-value">10 ש״שינים</span>
+              <span class="stat-value">16 ש״שינים</span>
             </div>
             <div class="stat-col">
               <span class="stat-label">כנסים ומיונים</span>
@@ -1469,11 +1683,11 @@
           <div class="card-stats-row">
             <div class="stat-col">
               <span class="stat-label">קומונה</span>
-              <span class="stat-value">15 ש״שינים</span>
+              <span class="stat-value">14 ש״שינים</span>
             </div>
             <div class="stat-col">
               <span class="stat-label">כנסים ומיונים</span>
-              <span class="stat-value">02/01/2026-03/01/2026, 09/01/2026-10/01/2026</span>
+              <span class="stat-value">24/12/2026-25/12/2026, 07/01/2027-08/01/2027</span>
             </div>
           </div>
 
@@ -1841,7 +2055,7 @@
       <td class="col-fit"><span class="table-badge badge-best">הכי מתאים</span></td>
       <td class="col-desc"><div class="cell-clamp">ש״ש כחלק מצוות הדרכת קבוצה, שיחות אישיות, לימודים, פעילויות, משק, קבלות שבת ואווירת קומונה חזקה.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">לבדוק קבוצות נעל״ה לעומת קבוצות אחרות.</div></td>
-      <td class="col-dates"><span class="dates-text">25/12/2025-26/12/2025, 15/01/2026-16/01/2026</span></td>
+      <td class="col-dates"><span class="dates-text">24/12/2026-25/12/2026, 14/01/2027-15/01/2027, 04/02/2027-05/02/2027</span></td>
       <td class="col-actions">
         <div class="action-btns">
           <a href="https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%aa%d7%99%d7%93-%d7%a8%d7%96%d7%99%d7%90%d7%9c/" target="_blank" rel="noopener noreferrer" class="apple-icon-btn" title="עמוד רשמי בתק״מ">↗</a>
@@ -1857,7 +2071,7 @@
       </td>
       <td class="col-region">השרון</td>
       <td class="col-type">כפרי נוער</td>
-      <td class="col-count">10</td>
+      <td class="col-count">16</td>
       <td class="col-fit"><span class="table-badge badge-best">הכי מתאים</span></td>
       <td class="col-desc"><div class="cell-clamp">דמות השראה ו“אח גדול”, מעורבות בפנימייה ובבית הספר, חקלאות, אירועי שיא, תגבור לימודי ותוכן חינוכי.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">לבדוק שיבוץ בין פנימייה/בית ספר/משק.</div></td>
@@ -1877,11 +2091,11 @@
       </td>
       <td class="col-region">מרכז</td>
       <td class="col-type">כפרי נוער</td>
-      <td class="col-count">15</td>
+      <td class="col-count">14</td>
       <td class="col-fit"><span class="table-badge badge-best">הכי מתאים</span></td>
       <td class="col-desc"><div class="cell-clamp">ליווי חיי פנימייה וקהילה, תמיכה אישית, פעילויות חברתיות וחינוכיות, פרויקטים ומשק חקלאי.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">לבדוק באילו ענפים/קבוצות משובצים בפועל.</div></td>
-      <td class="col-dates"><span class="dates-text">02/01/2026-03/01/2026, 09/01/2026-10/01/2026</span></td>
+      <td class="col-dates"><span class="dates-text">24/12/2026-25/12/2026, 07/01/2027-08/01/2027</span></td>
       <td class="col-actions">
         <div class="action-btns">
           <a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%9f-%d7%a9%d7%9e%d7%9f/" target="_blank" rel="noopener noreferrer" class="apple-icon-btn" title="עמוד רשמי בתק״מ">↗</a>
@@ -2001,7 +2215,7 @@
       <td class="col-fit"><span class="table-badge badge-high">מתאים מאוד</span></td>
       <td class="col-desc"><div class="cell-clamp">מודל אח בוגר, ליווי יום-יומי, חוגים, תרבות ועזרה ברגעי משבר.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">מסגרת טיפולית ופוסט-אשפוזית; לבדוק עומס רגשי והדרכה.</div></td>
-      <td class="col-dates"><span class="dates-text">25/12/2025, 08/01/2026</span></td>
+      <td class="col-dates"><span class="dates-text">07/01/2027, 14/01/2027</span></td>
       <td class="col-actions">
         <div class="action-btns">
           <a href="https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%97%d7%95%d7%96%d7%aa-%d7%99%d7%9c%d7%93%d7%99%d7%9d/" target="_blank" rel="noopener noreferrer" class="apple-icon-btn" title="עמוד רשמי בתק״מ">↗</a>
@@ -2017,11 +2231,11 @@
       </td>
       <td class="col-region">מרכז</td>
       <td class="col-type">פנימיות</td>
-      <td class="col-count">12</td>
+      <td class="col-count">14</td>
       <td class="col-fit"><span class="table-badge badge-check">לבדיקה</span></td>
       <td class="col-desc"><div class="cell-clamp">פנימייה טיפולית לילדים ונוער, אך בדף לא הופיע פירוט ברור של תפקיד הש״ש.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">לשאול בדיוק מה עושים בשגרה ומה מידת הקשר עם חניכים.</div></td>
-      <td class="col-dates"><span class="dates-text">25/12/2025-27/12/2025, 08/01/2026-10/01/2026</span></td>
+      <td class="col-dates"><span class="dates-text">07/01/2027, 04/02/2027</span></td>
       <td class="col-actions">
         <div class="action-btns">
           <a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%90%d7%a4%d7%9c/" target="_blank" rel="noopener noreferrer" class="apple-icon-btn" title="עמוד רשמי בתק״מ">↗</a>
@@ -2101,7 +2315,7 @@
       <td class="col-fit"><span class="table-badge badge-best">הכי מתאים</span></td>
       <td class="col-desc"><div class="cell-clamp">קבוצה, כפר ומשק: שיחות אישיות, פעילויות ערכיות, לימודים, שבתות וחוגים.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">לבדוק טווח התאריכים באתר, כי הופיעו שנים לא עקביות.</div></td>
-      <td class="col-dates"><span class="dates-text">07/01/2027-08/01/2026, 21/01/2027-22/01/2027</span></td>
+      <td class="col-dates"><span class="dates-text">07/01/2027-08/01/2027, 21/01/2027-22/01/2027</span></td>
       <td class="col-actions">
         <div class="action-btns">
           <a href="https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%a0%d7%99%d7%a8-%d7%94%d7%a2%d7%9e%d7%a7/" target="_blank" rel="noopener noreferrer" class="apple-icon-btn" title="עמוד רשמי בתק״מ">↗</a>
@@ -2241,7 +2455,7 @@
       <td class="col-fit"><span class="table-badge badge-high">מתאים מאוד</span></td>
       <td class="col-desc"><div class="cell-clamp">משפחתונים, שייכות לצוות הדרכה, פעילויות העשרה, שבתות, חגים וטקסים.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">פנימייה טיפולית; לבדוק תמיכה רגשית לש״ש.</div></td>
-      <td class="col-dates"><span class="dates-text">01/01/2026-02/01/2026, 15/01/2026-16/01/2026</span></td>
+      <td class="col-dates"><span class="dates-text">24/12/2026-25/12/2026, 07/01/2027-08/01/2027</span></td>
       <td class="col-actions">
         <div class="action-btns">
           <a href="https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a8/" target="_blank" rel="noopener noreferrer" class="apple-icon-btn" title="עמוד רשמי בתק״מ">↗</a>
@@ -2301,7 +2515,7 @@
       <td class="col-fit"><span class="table-badge badge-high">מתאים מאוד</span></td>
       <td class="col-desc"><div class="cell-clamp">דמות מיטיבה, שותפות בצוות, הקשבה, משחק, השכבה, גבולות ופעילויות קומונה.</div></td>
       <td class="col-check"><div class="cell-clamp text-subtle">עבודה קשה ומסורה; לבדוק גבולות אחריות.</div></td>
-      <td class="col-dates"><span class="dates-text">25/12/2025, 08/01/2026, 22/01/2026</span></td>
+      <td class="col-dates"><span class="dates-text">31/12/2026-01/01/2027, 14/01/2027-15/01/2027, 28/01/2027-29/01/2027</span></td>
       <td class="col-actions">
         <div class="action-btns">
           <a href="https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%9c%d7%95%d7%9e%d7%99%d7%9d/" target="_blank" rel="noopener noreferrer" class="apple-icon-btn" title="עמוד רשמי בתק״מ">↗</a>
@@ -2356,7 +2570,7 @@
       </div>
       <div class="ex-body">אתה חניך שם (בית הספר שלך שבו אתה לומד כיום), ולכן אי אפשר לבחור את המסגרת הזאת לשנת שירות.</div>
       <div class="ex-footer">
-        <span class="ex-count">14 ש״שינים בקומונה</span>
+        <span class="ex-count">18 ש״שינים בקומונה</span>
         <a href="https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%9c%d7%95%d7%a0%d7%99-%d7%99%d7%a6%d7%97%d7%a7/" target="_blank" rel="noopener noreferrer" class="ex-link">עמוד בתק״מ ↗</a>
       </div>
     </div>
@@ -2384,9 +2598,9 @@
         </div>
         <span class="ex-tag">פחות מ-10</span>
       </div>
-      <div class="ex-body">מתחת למינימום: רק 6 ש״שינים בקומונה.</div>
+      <div class="ex-body">מתחת למינימום: רק 8 ש״שינים בקומונה.</div>
       <div class="ex-footer">
-        <span class="ex-count">6 ש״שינים בקומונה</span>
+        <span class="ex-count">8 ש״שינים בקומונה</span>
         <a href="https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%94%d7%99%d7%9c%d7%93/" target="_blank" rel="noopener noreferrer" class="ex-link">עמוד בתק״מ ↗</a>
       </div>
     </div>
@@ -2749,7 +2963,7 @@
         <span class="conf-region">צפון</span>
       </div>
       <div class="conf-right">
-        <span class="conf-date">25/12/2025, 08/01/2026</span>
+        <span class="conf-date">07/01/2027, 14/01/2027</span>
         <button class="btn-conf" onclick="openChatWithPrompt('ספר לי על מועד הכנס של אחוזת ילדים ואיך להתכונן אליו')">שאל בצ'אט</button>
       </div>
     </div>
@@ -2760,7 +2974,7 @@
         <span class="conf-region">מרכז</span>
       </div>
       <div class="conf-right">
-        <span class="conf-date">25/12/2025-27/12/2025, 08/01/2026-10/01/2026</span>
+        <span class="conf-date">07/01/2027, 04/02/2027</span>
         <button class="btn-conf" onclick="openChatWithPrompt('ספר לי על מועד הכנס של בית אפל ואיך להתכונן אליו')">שאל בצ'אט</button>
       </div>
     </div>
@@ -2782,7 +2996,7 @@
         <span class="conf-region">מרכז</span>
       </div>
       <div class="conf-right">
-        <span class="conf-date">02/01/2026-03/01/2026, 09/01/2026-10/01/2026</span>
+        <span class="conf-date">24/12/2026-25/12/2026, 07/01/2027-08/01/2027</span>
         <button class="btn-conf" onclick="openChatWithPrompt('ספר לי על מועד הכנס של בן שמן ואיך להתכונן אליו')">שאל בצ'אט</button>
       </div>
     </div>
@@ -2837,7 +3051,7 @@
         <span class="conf-region">צפון</span>
       </div>
       <div class="conf-right">
-        <span class="conf-date">07/01/2027-08/01/2026, 21/01/2027-22/01/2027</span>
+        <span class="conf-date">07/01/2027-08/01/2027, 21/01/2027-22/01/2027</span>
         <button class="btn-conf" onclick="openChatWithPrompt('ספר לי על מועד הכנס של ויצ״ו ניר העמק ואיך להתכונן אליו')">שאל בצ'אט</button>
       </div>
     </div>
@@ -2969,7 +3183,7 @@
         <span class="conf-region">השרון</span>
       </div>
       <div class="conf-right">
-        <span class="conf-date">01/01/2026-02/01/2026, 15/01/2026-16/01/2026</span>
+        <span class="conf-date">24/12/2026-25/12/2026, 07/01/2027-08/01/2027</span>
         <button class="btn-conf" onclick="openChatWithPrompt('ספר לי על מועד הכנס של נווה הדר ואיך להתכונן אליו')">שאל בצ'אט</button>
       </div>
     </div>
@@ -3013,7 +3227,7 @@
         <span class="conf-region">מרכז</span>
       </div>
       <div class="conf-right">
-        <span class="conf-date">25/12/2025, 08/01/2026, 22/01/2026</span>
+        <span class="conf-date">31/12/2026-01/01/2027, 14/01/2027-15/01/2027, 28/01/2027-29/01/2027</span>
         <button class="btn-conf" onclick="openChatWithPrompt('ספר לי על מועד הכנס של עלומים ואיך להתכונן אליו')">שאל בצ'אט</button>
       </div>
     </div>
@@ -3024,7 +3238,7 @@
         <span class="conf-region">מרכז</span>
       </div>
       <div class="conf-right">
-        <span class="conf-date">25/12/2025-26/12/2025, 15/01/2026-16/01/2026</span>
+        <span class="conf-date">24/12/2026-25/12/2026, 14/01/2027-15/01/2027, 04/02/2027-05/02/2027</span>
         <button class="btn-conf" onclick="openChatWithPrompt('ספר לי על מועד הכנס של עתיד רזיאל ואיך להתכונן אליו')">שאל בצ'אט</button>
       </div>
     </div>
@@ -3086,7 +3300,7 @@
         <span class="header-dot"></span>
         <div>
           <span class="header-title">ש״ש-בוט AI</span>
-          <span class="header-sub">· מחובר</span>
+          <span class="header-sub">· מעודכן מהאתר ב-02/11/2026</span>
         </div>
       </div>
 
@@ -3117,8 +3331,8 @@
   </div>
 
   <script>
-    const SUITABLE = [{"id": "kfar-yarok", "name": "הכפר הירוק", "rank": 1, "region": "מרכז", "location": "בין תל אביב לרמת השרון", "type": "כפרי נוער", "count": 21, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "פנימייה גדולה", "משפחתונים", "EMIS"], "desc": "דמות חינוכית משמעותית, חלק מהצוות, ליווי אישי וקבוצתי, פרויקטים, טקסים, פעילויות ומשק חקלאי.", "check": "מסגרת גדולה מאוד עם פנימייה, משפחתונים ו-EMIS; לשאול לאיזו מסגרת משובצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%9b%d7%a4%d7%a8-%d7%94%d7%99%d7%a8%d7%95%d7%a7/", "dates": "02/01/2026-03/01/2026", "top": true}, {"id": "hadasim", "name": "ויצ״ו הדסים", "rank": 2, "region": "השרון", "location": "אבן יהודה", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["אח בוגר", "משק חקלאי", "שבתות כפר", "חוגים"], "desc": "איש צוות צעיר בקבוצה, אח בוגר, תמיכה, פרויקטים, חוגים, שבתות כפר ומשק חקלאי.", "check": "לוודא לאיזו קבוצת נוער משתבצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%94%d7%93%d7%a1%d7%99%d7%9d/", "dates": "25/12/2025, 08/01/2026", "top": true}, {"id": "kfar-galim", "name": "כפר גלים", "rank": 3, "region": "צפון", "location": "חוף הכרמל", "type": "כפרי נוער", "count": 16, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "קבוצת נעל״ה", "יוזמות אישיות", "עזרה לימודית"], "desc": "ש״ש כחלק מצוות קבוצה, אח בוגר, עזרה לימודית, משק, פעילויות ויוזמות אישיות.", "check": "לבדוק אם משובצים לקבוצת נעל״ה/כדורגל/קבוצות אחרות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a4%d7%a8-%d7%92%d7%9c%d7%99%d7%9d/", "dates": "01/01/2026-02/01/2026, 15/01/2026-16/01/2026", "top": true}, {"id": "nirim", "name": "נירים", "rank": 4, "region": "צפון", "location": "בוסתן הגליל", "type": "כפרי נוער", "count": 19, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["מסעות שטח", "נוער מאתגר", "שטח", "עוצמה חינוכית"], "desc": "דמות זמינה ומעצימה, ליווי בפנימייה, בבית הספר ובחוגים, ישיבות סגל ופעילות שטח ומסעות משמעותיים.", "check": "שגרה תובענית עם מסעות ושטח; מתאים למי שרוצה אתגר חזק ומעצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%99%d7%a8%d7%99%d7%9d/", "dates": "08/01/2026-09/01/2026", "top": true}, {"id": "mossinson", "name": "מוסינזון", "rank": 5, "region": "השרון", "location": "הוד השרון", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["דרג ביניים", "ליווי קבוצה", "נעל״ה", "בית ספר"], "desc": "מוגדר כאיש צוות צעיר ודרג ביניים בין החניכים לצוות הבוגר, עם ליווי קבוצה, בית ספר ופעילויות.", "check": "לוודא אם מעדיפים קבוצת נעל״ה או ישראלים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%95%d7%a1%d7%99%d7%a0%d7%96%d7%95%d7%9f/", "dates": "08/01/2026-09/01/2026", "top": true}, {"id": "atid-raziel", "name": "עתיד רזיאל", "rank": 6, "region": "מרכז", "location": "הרצליה", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["קומונה חזקה", "משק חקלאי", "קבלות שבת", "נעל״ה"], "desc": "ש״ש כחלק מצוות הדרכת קבוצה, שיחות אישיות, לימודים, פעילויות, משק, קבלות שבת ואווירת קומונה חזקה.", "check": "לבדוק קבוצות נעל״ה לעומת קבוצות אחרות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%aa%d7%99%d7%93-%d7%a8%d7%96%d7%99%d7%90%d7%9c/", "dates": "25/12/2025-26/12/2025, 15/01/2026-16/01/2026", "top": true}, {"id": "neve-hadassah", "name": "נווה הדסה", "rank": 7, "region": "השרון", "location": "ליד תל יצחק", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["דמות השראה", "אח גדול", "חקלאות", "אירועי שיא"], "desc": "דמות השראה ו“אח גדול”, מעורבות בפנימייה ובבית הספר, חקלאות, אירועי שיא, תגבור לימודי ותוכן חינוכי.", "check": "לבדוק שיבוץ בין פנימייה/בית ספר/משק.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a1%d7%94/", "dates": "01/01/2026, 29/01/2026", "top": true}, {"id": "ben-shemen", "name": "בן שמן", "rank": 8, "region": "מרכז", "location": "בן שמן", "type": "כפרי נוער", "count": 15, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "קומונה גדולה", "חיי קהילה", "פרויקטים"], "desc": "ליווי חיי פנימייה וקהילה, תמיכה אישית, פעילויות חברתיות וחינוכיות, פרויקטים ומשק חקלאי.", "check": "לבדוק באילו ענפים/קבוצות משובצים בפועל.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%9f-%d7%a9%d7%9e%d7%9f/", "dates": "02/01/2026-03/01/2026, 09/01/2026-10/01/2026", "top": true}, {"id": "ahava", "name": "אהבה", "rank": 9, "region": "צפון", "location": "כפר ביאליק", "type": "פנימיות", "count": 18, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משפחתונים", "אח גדול", "קומונה גדולה", "ללא משמעת"], "desc": "משפחתונים, קשר יומיומי, דמות בוגרת וחברית, תמיכה וליווי ללא דגש על משמעת. מודל מובהק של “אח/ות גדול/ה”.", "check": "לוודא לאיזה משפחתון משובצים ומה היחס בין ילדים לנוער.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%94%d7%91%d7%94/", "dates": "26/12/2025-27/12/2025, 09/01/2026-10/01/2026, 23/01/2026-24/01/2026, 06/02/2026-07/02/2026", "top": true}, {"id": "kaduri", "name": "כדורי", "rank": 10, "region": "צפון", "location": "גליל תחתון", "type": "כפרי נוער", "count": 12, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["עבודה פיזית", "דוגמה אישית", "חוגים", "אירועי תוכן"], "desc": "צוות פנימייה, ליווי קבוצה, חוגים, אירועי תוכן, נראות הכפר ועבודה יומיומית שמדגישה דוגמה אישית.", "check": "הרבה עבודה פיזית ויוזמה; מתאים למי שרוצה אינטנסיביות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%93%d7%95%d7%a8%d7%99/", "dates": "14/01/2027-16/01/2027", "top": true}, {"id": "kanot", "name": "כנות", "rank": 11, "region": "מרכז", "location": "צומת כנות", "type": "כפרי נוער", "count": 14, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק ופנימייה", "אח בוגר", "יוזמות", "אחריות"], "desc": "שילוב חזק בין פנימייה ומשק, דמות אח/ות בוגר/ת, יוזמות ופרויקטים, אחריות יום-יומית מול חניכים.", "check": "לבדוק באיזה ענף משק משתבצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a0%d7%95%d7%aa/", "dates": "07/01/2027-08/01/2027, 08/01/2027-09/01/2027", "top": true}, {"id": "shvilim", "name": "שבילים", "rank": 12, "region": "השרון", "location": "עמק חפר / רופין", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["פוסט אשפוזי", "קשר רגשי", "פנימייה טיפולית", "משמעות"], "desc": "קשר אישי עמוק ותומך עם בני נוער בפנימייה טיפולית-פוסט אשפוזית. מתאים אם אתה רוצה משמעות וקשר רגשי חזק.", "check": "מסגרת טיפולית-פוסט אשפוזית; לבדוק התאמה רגשית.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a9%d7%91%d7%99%d7%9c%d7%99%d7%9d/", "dates": "01/01/2026, 15/01/2026", "top": true}, {"id": "tel-baruch", "name": "תל ברוך", "rank": 13, "region": "מרכז", "location": "תל אביב", "type": "פנימיות", "count": 14, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["תל אביב", "ליווי קבוצה", "ללא משמעת", "שגרת חיים"], "desc": "ליווי קבוצה לאורך היום, שיעורים, חוגים, ארוחות, ליווי חיצוני ושגרת חיים של ילדים ונוער בפנימייה.", "check": "ש״ש מסייע למדריכים ולא אחראי משמעתית; טוב לוודא גבולות תפקיד.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%aa%d7%9c-%d7%91%d7%a8%d7%95%d7%9a/", "dates": "08/01/2026, 15/01/2026, 22/01/2026", "top": true}, {"id": "achuzat-yeladim", "name": "אחוזת ילדים", "rank": 14, "region": "צפון", "location": "חיפה", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["טיפולית", "פוסט אשפוזית", "אח בוגר", "משברים"], "desc": "מודל אח בוגר, ליווי יום-יומי, חוגים, תרבות ועזרה ברגעי משבר.", "check": "מסגרת טיפולית ופוסט-אשפוזית; לבדוק עומס רגשי והדרכה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%97%d7%95%d7%96%d7%aa-%d7%99%d7%9c%d7%93%d7%99%d7%9d/", "dates": "25/12/2025, 08/01/2026", "top": false}, {"id": "beit-appel", "name": "בית אפל", "rank": 15, "region": "מרכז", "location": "גן יבנה", "type": "פנימיות", "count": 12, "fit": "לבדיקה", "fitLevel": "check", "tags": ["טיפולית", "ילדים ונוער"], "desc": "פנימייה טיפולית לילדים ונוער, אך בדף לא הופיע פירוט ברור של תפקיד הש״ש.", "check": "לשאול בדיוק מה עושים בשגרה ומה מידת הקשר עם חניכים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%90%d7%a4%d7%9c/", "dates": "25/12/2025-27/12/2025, 08/01/2026-10/01/2026", "top": false}, {"id": "beit-rut", "name": "בית רות", "rank": 16, "region": "צפון", "location": "עפולה", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["נערות בלבד", "אחות גדולה", "העצמה"], "desc": "קשר אישי מעצים, דמות “אחות גדולה”, שגרה מלאה עם הנערות ואירועים בכפר.", "check": "כפר לנערות; לבדוק התאמה אישית ומגדרית.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%a8%d7%95%d7%aa/", "dates": "08/01/2026-09/01/2026, 22/01/2026-23/01/2026, 05/02/2026-06/02/2026", "top": false}, {"id": "haoranim", "name": "האורנים", "rank": 17, "region": "מרכז", "location": "בין ראשל״צ לנס ציונה", "type": "פנימיות", "count": 15, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["פוסט אשפוזית", "קומונה גדולה", "אח בוגר", "בני נוער"], "desc": "דמות יציבה ואח בוגר, ליווי פעילויות בכפר, אחריות גבוהה מול בני נוער.", "check": "מסגרת פוסט-אשפוזית; לבדוק הדרכה וליווי רגשי לש״ש.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%90%d7%95%d7%a8%d7%a0%d7%99%d7%9d/", "dates": "08/01/2026-09/01/2026, 22/01/2026-23/01/2026", "top": false}, {"id": "beit-singer", "name": "הבית לילד - בית זינגר", "rank": 18, "region": "צפון", "location": "כפר יחזקאל", "type": "פנימיות", "count": 14, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["ילדים", "סדר יום פנימייתי", "צוות בוגר"], "desc": "ליווי ילדים לאורך היום, סדר יום פנימייתי, משחקים, שיחות ועבודה לצד צוות בוגר.", "check": "מסגרת מאתגרת; חשוב לשאול על גבולות תפקיד והדרכה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%91%d7%99%d7%aa-%d7%9c%d7%99%d7%9c%d7%93-%d7%91%d7%99%d7%aa-%d7%96%d7%99%d7%a0%d7%92%d7%a8/", "dates": "25/12/2025-26/12/2025, 08/01/2026-09/01/2026, 22/01/2026-23/01/2026", "top": false}, {"id": "wizo-nir-haemek", "name": "ויצ״ו ניר העמק", "rank": 19, "region": "צפון", "location": "עפולה", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק", "קבוצה", "כפר", "שבתות כפר"], "desc": "קבוצה, כפר ומשק: שיחות אישיות, פעילויות ערכיות, לימודים, שבתות וחוגים.", "check": "לבדוק טווח התאריכים באתר, כי הופיעו שנים לא עקביות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%a0%d7%99%d7%a8-%d7%94%d7%a2%d7%9e%d7%a7/", "dates": "07/01/2027-08/01/2026, 21/01/2027-22/01/2027", "top": false}, {"id": "tuvia", "name": "טוביה", "rank": 20, "region": "צפון", "location": "הרדוף", "type": "פנימיות", "count": 15, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["הרדוף", "אנתרופוסופיה", "ילדים ונוער", "קומונה גדולה"], "desc": "חלק מלא מהעבודה עם הילדים: שגרה, בית, פעילויות, תרבות, ישיבות צוות והדרכה.", "check": "יש הרבה ילדים צעירים לצד נוער; לבדוק אם זה מתאים לך.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%98%d7%95%d7%91%d7%99%d7%94/", "dates": "25/12/2025-27/12/2025, 08/01/2026-10/01/2026, 22/01/2026-24/01/2026", "top": false}, {"id": "tokayer", "name": "טוקאייר", "rank": 21, "region": "השרון", "location": "בחן", "type": "פנימיות", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["בנים בלבד", "אח גדול", "תרבות ופנאי"], "desc": "חלק משמעותי מצוות הקבוצה, עבודה ישירה, משימות בוקר, תרבות ופנאי, אח גדול.", "check": "מיועד לבנים בלבד לפי הדף; לבדוק אופי הקבוצה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%98%d7%95%d7%a7%d7%90%d7%99%d7%99%d7%a8/", "dates": "15/01/2026, 12/02/2026", "top": false}, {"id": "meir-shfeya", "name": "כפר הנוער מאיר שפיה", "rank": 22, "region": "צפון", "location": "ליד זיכרון יעקב", "type": "כפרי נוער", "count": 12, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "אקדמיות ספורט", "חוגים", "צוות בוגר"], "desc": "צוות בוגר בכפר, קבוצה, משק חקלאי, חוגים, ליווי אישי ואקדמיות ספורט.", "check": "פירוט רחב מאוד; לשאול מה בפועל השיבוץ היומי שלך.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a4%d7%a8-%d7%94%d7%a0%d7%95%d7%a2%d7%a8-%d7%9e%d7%90%d7%99%d7%a8-%d7%a9%d7%a4%d7%99%d7%94/", "dates": "21/01/2027-22/01/2027, 28/01/2027-29/01/2027", "top": false}, {"id": "mgadim", "name": "מגדים", "rank": 23, "region": "צפון", "location": "מגדל העמק", "type": "פנימיות", "count": 12, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["צוות בית", "משמרות ערב", "טיפוח הכפר"], "desc": "חלק מצוות בית, משמרות ערב, תרבות, פרויקטים, טיפוח הכפר וליווי אישי.", "check": "בדף לא הופיע איש קשר ברור; לבדוק דרך האתר.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%92%d7%93%d7%99%d7%9d/", "dates": "15/01/2026-16/01/2026, 29/01/2026-30/01/2026, 09/02/2026", "top": false}, {"id": "manof", "name": "מנוף", "rank": 24, "region": "צפון", "location": "עכו", "type": "כפרי נוער", "count": 16, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משק חקלאי", "קומונה גדולה", "נוער מורכב", "ביתנים"], "desc": "משק חקלאי, ליווי ביתנים, חונכות אישית, קשרים אישיים והפקת פרויקטים.", "check": "אוכלוסייה מרקע מורכב; לבדוק רמת אינטנסיביות והכשרה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a0%d7%95%d7%a3/", "dates": "25/12/2025-26/12/2025, 01/01/2026-02/01/2026, 08/01/2026-09/01/2026", "top": false}, {"id": "neve-elisha", "name": "נווה אלישע", "rank": 25, "region": "השרון", "location": "גבעת עדה", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משפחתונים", "ילדים ונוער", "אירועי שיא"], "desc": "ש״ש במשפחתון, שיעורי בית, ליוויים, ישיבות, פעילויות כפריות ואירועי שיא.", "check": "יש ילדים צעירים לצד נוער; לבדוק שכבות גיל.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%90%d7%9c%d7%99%d7%a9%d7%a2/", "dates": "15/01/2026, 19/02/2026", "top": false}, {"id": "neve-hadar", "name": "נווה הדר", "rank": 26, "region": "השרון", "location": "חבצלת השרון", "type": "פנימיות", "count": 11, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משפחתונים", "טיפולית", "צוות הדרכה", "שבתות וחגים"], "desc": "משפחתונים, שייכות לצוות הדרכה, פעילויות העשרה, שבתות, חגים וטקסים.", "check": "פנימייה טיפולית; לבדוק תמיכה רגשית לש״ש.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a8/", "dates": "01/01/2026-02/01/2026, 15/01/2026-16/01/2026", "top": false}, {"id": "nirim-bamidbar", "name": "נירים במדבר", "rank": 27, "region": "צפון / שטח", "location": "בוסתן הגליל", "type": "פנימיות", "count": 12, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["מסעות שטח", "פעילות ימית", "חוסן פיזי", "אתגר"], "desc": "נוכחות בכל היום, חוגים, בית ספר, שיחות, משברים, פעילות ימית ומסעות שטח.", "check": "דורש חוסן פיזי ונפשי; מתאים למי שרוצה שטח ואתגר.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%99%d7%a8%d7%99%d7%9d-%d7%91%d7%9e%d7%93%d7%91%d7%a8/", "dates": "25/12/2025, 01/01/2026", "top": false}, {"id": "ayanot", "name": "עיינות", "rank": 28, "region": "מרכז", "location": "מ.א. גן רווה", "type": "כפרי נוער", "count": 14, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משק חקלאי", "אח בוגר", "פנימייה", "אירועים"], "desc": "איש צוות ואח בוגר, פנימייה, משק חקלאי, פרויקטים, אירועים ושיחות ליווי.", "check": "לשאול מה חלוקת הזמן בין פנימייה למשק.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%99%d7%99%d7%a0%d7%95%d7%aa/", "dates": "08/01/2026-09/01/2026, 15/01/2026-16/01/2026", "top": false}, {"id": "olamim", "name": "עלומים", "rank": 29, "region": "מרכז", "location": "כפר סבא", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["דמות מיטיבה", "כפר סבא", "שותפות בצוות", "גבולות"], "desc": "דמות מיטיבה, שותפות בצוות, הקשבה, משחק, השכבה, גבולות ופעילויות קומונה.", "check": "עבודה קשה ומסורה; לבדוק גבולות אחריות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%9c%d7%95%d7%9e%d7%99%d7%9d/", "dates": "25/12/2025, 08/01/2026, 22/01/2026", "top": false}, {"id": "renanim", "name": "רננים", "rank": 30, "region": "צפון", "location": "זיכרון יעקב", "type": "פנימיות", "count": 10, "fit": "לבדיקה", "fitLevel": "check", "tags": ["חינוכי", "זיכרון יעקב", "קשר חניכים"], "desc": "בדף נכתב שהתפקיד חינוכי ושווה בצוות ההדרכה, אך הפירוט קצר מאוד.", "check": "לשאול מה סדר היום ומה מידת העבודה הישירה עם חניכים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a8%d7%a0%d7%a0%d7%99%d7%9d/", "dates": "29/01/2026", "top": false}];
-    const EXCLUDED = [{"name": "אלוני יצחק", "region": "מרכז", "location": "גבעת עדה", "type": "כפרי נוער", "count": 14, "reason": "אתה חניך שם (בית הספר שלך שבו אתה לומד כיום), ולכן אי אפשר לבחור את המסגרת הזאת לשנת שירות.", "badge": "בית הספר שלך", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%9c%d7%95%d7%a0%d7%99-%d7%99%d7%a6%d7%97%d7%a7/"}, {"name": "אודם", "region": "צפון", "location": "קצרין", "type": "כפרי נוער", "count": 5, "reason": "מתחת למינימום: פחות מ-10 ש״שינים (רק 5 ש״שינים בקומונה).", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%95%d7%93%d7%9d/"}, {"name": "בית הילד", "region": "מרכז", "location": "תל אביב", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%94%d7%99%d7%9c%d7%93/"}, {"name": "בית טף", "region": "צפון", "location": "פרדס חנה", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%98%d7%a3/"}, {"name": "דארנא", "region": "השרון", "location": "מכללת רופין, עמק חפר", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%93%d7%90%d7%a8%d7%a0%d7%90/"}, {"name": "דרך גבת", "region": "צפון", "location": "קיבוץ גבת", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%93%d7%a8%d7%9a-%d7%92%d7%91%d7%aa/"}, {"name": "המחלקה לילדים ונוער בסיכון", "region": "צפון", "location": "גליל מערבי", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%9e%d7%97%d7%9c%d7%a7%d7%94-%d7%9c%d7%99%d7%9c%d7%93%d7%99%d7%9d-%d7%95%d7%a0%d7%95%d7%a2%d7%a8-%d7%91%d7%a1%d7%99%d7%9b%d7%95%d7%9f/"}, {"name": "הפרדס", "region": "צפון", "location": "פרדס חנה", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%a4%d7%a8%d7%93%d7%a1/"}, {"name": "ויצ״ו גן ונוף", "region": "מרכז", "location": "פתח תקווה", "type": "כפרי נוער", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%92%d7%9f-%d7%95%d7%a0%d7%95%d7%a3/"}, {"name": "ויצ״ו נהלל", "region": "צפון", "location": "כפר הנוער ויצ״ו נהלל", "type": "כפרי נוער", "count": 9, "reason": "מתחת למינימום: רק 9 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%a0%d7%94%d7%9c%d7%9c/"}, {"name": "מבואות עירון", "region": "מרכז", "location": "עין שמר", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%91%d7%95%d7%90%d7%95%aa-%d7%a2%d7%99%d7%a8%d7%95%d7%9f/"}, {"name": "מוסד חינוכי שומריה", "region": "צפון", "location": "משמר העמק", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%95%d7%a1%d7%93-%d7%97%d7%99%d7%a0%d7%95%d7%9b%d7%99-%d7%a9%d7%95%d7%9e%d7%a8%d7%99%d7%94/"}, {"name": "מלכישוע", "region": "צפון", "location": "פסגת הר הגלבוע", "type": "כפרי נוער", "count": 9, "reason": "מתחת למינימום: רק 9 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%9c%d7%9b%d7%99%d7%a9%d7%95%d7%a2/"}, {"name": "מקוה ישראל", "region": "מרכז", "location": "חולון", "type": "כפרי נוער", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a7%d7%95%d7%94-%d7%99%d7%a9%d7%a8%d7%90%d7%9c/"}, {"name": "מקווה ישראל משק", "region": "מרכז", "location": "חולון", "type": "כפרי נוער", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a7%d7%95%d7%95%d7%94-%d7%99%d7%a9%d7%a8%d7%90%d7%9c-%d7%9e%d7%a9%d7%a7/"}, {"name": "מרכז חירום אהבה", "region": "צפון", "location": "כפר ביאליק", "type": "פנימיות", "count": 9, "reason": "מתחת למינימום: רק 9 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a8%d7%9b%d7%96-%d7%97%d7%99%d7%a8%d7%95%d7%9d-%d7%90%d7%94%d7%91%d7%94/"}, {"name": "נווה הדסה - קומונת משק", "region": "השרון", "location": "נווה הדסה", "type": "כפרי נוער", "count": 4, "reason": "מתחת למינימום: רק 4 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a1%d7%94-%d7%a7%d7%95%d7%9e%d7%95%d7%a0%d7%aa-%d7%9e%d7%a9%d7%a7/"}, {"name": "רבדים", "region": "השרון", "location": "נתניה", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a8%d7%91%d7%93%d7%99%d7%9d/"}];
+    const SUITABLE = [{"id": "kfar-yarok", "name": "הכפר הירוק", "rank": 1, "region": "מרכז", "location": "בין תל אביב לרמת השרון", "type": "כפרי נוער", "count": 21, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "פנימייה גדולה", "משפחתונים", "EMIS"], "desc": "דמות חינוכית משמעותית, חלק מהצוות, ליווי אישי וקבוצתי, פרויקטים, טקסים, פעילויות ומשק חקלאי.", "check": "מסגרת גדולה מאוד עם פנימייה, משפחתונים ו-EMIS; לשאול לאיזו מסגרת משובצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%9b%d7%a4%d7%a8-%d7%94%d7%99%d7%a8%d7%95%d7%a7/", "dates": "02/01/2026-03/01/2026", "top": true}, {"id": "hadasim", "name": "ויצ״ו הדסים", "rank": 2, "region": "השרון", "location": "אבן יהודה", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["אח בוגר", "משק חקלאי", "שבתות כפר", "חוגים"], "desc": "איש צוות צעיר בקבוצה, אח בוגר, תמיכה, פרויקטים, חוגים, שבתות כפר ומשק חקלאי.", "check": "לוודא לאיזו קבוצת נוער משתבצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%94%d7%93%d7%a1%d7%99%d7%9d/", "dates": "25/12/2025, 08/01/2026", "top": true}, {"id": "kfar-galim", "name": "כפר גלים", "rank": 3, "region": "צפון", "location": "חוף הכרמל", "type": "כפרי נוער", "count": 16, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "קבוצת נעל״ה", "יוזמות אישיות", "עזרה לימודית"], "desc": "ש״ש כחלק מצוות קבוצה, אח בוגר, עזרה לימודית, משק, פעילויות ויוזמות אישיות.", "check": "לבדוק אם משובצים לקבוצת נעל״ה/כדורגל/קבוצות אחרות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a4%d7%a8-%d7%92%d7%9c%d7%99%d7%9d/", "dates": "01/01/2026-02/01/2026, 15/01/2026-16/01/2026", "top": true}, {"id": "nirim", "name": "נירים", "rank": 4, "region": "צפון", "location": "בוסתן הגליל", "type": "כפרי נוער", "count": 19, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["מסעות שטח", "נוער מאתגר", "שטח", "עוצמה חינוכית"], "desc": "דמות זמינה ומעצימה, ליווי בפנימייה, בבית הספר ובחוגים, ישיבות סגל ופעילות שטח ומסעות משמעותיים.", "check": "שגרה תובענית עם מסעות ושטח; מתאים למי שרוצה אתגר חזק ומעצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%99%d7%a8%d7%99%d7%9d/", "dates": "08/01/2026-09/01/2026", "top": true}, {"id": "mossinson", "name": "מוסינזון", "rank": 5, "region": "השרון", "location": "הוד השרון", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["דרג ביניים", "ליווי קבוצה", "נעל״ה", "בית ספר"], "desc": "מוגדר כאיש צוות צעיר ודרג ביניים בין החניכים לצוות הבוגר, עם ליווי קבוצה, בית ספר ופעילויות.", "check": "לוודא אם מעדיפים קבוצת נעל״ה או ישראלים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%95%d7%a1%d7%99%d7%a0%d7%96%d7%95%d7%9f/", "dates": "08/01/2026-09/01/2026", "top": true}, {"id": "atid-raziel", "name": "עתיד רזיאל", "rank": 6, "region": "מרכז", "location": "הרצליה", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["קומונה חזקה", "משק חקלאי", "קבלות שבת", "נעל״ה"], "desc": "ש״ש כחלק מצוות הדרכת קבוצה, שיחות אישיות, לימודים, פעילויות, משק, קבלות שבת ואווירת קומונה חזקה.", "check": "לבדוק קבוצות נעל״ה לעומת קבוצות אחרות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%aa%d7%99%d7%93-%d7%a8%d7%96%d7%99%d7%90%d7%9c/", "dates": "24/12/2026-25/12/2026, 14/01/2027-15/01/2027, 04/02/2027-05/02/2027", "top": true}, {"id": "neve-hadassah", "name": "נווה הדסה", "rank": 7, "region": "השרון", "location": "ליד תל יצחק", "type": "כפרי נוער", "count": 16, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["דמות השראה", "אח גדול", "חקלאות", "אירועי שיא"], "desc": "דמות השראה ו“אח גדול”, מעורבות בפנימייה ובבית הספר, חקלאות, אירועי שיא, תגבור לימודי ותוכן חינוכי.", "check": "לבדוק שיבוץ בין פנימייה/בית ספר/משק.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a1%d7%94/", "dates": "01/01/2026, 29/01/2026", "top": true}, {"id": "ben-shemen", "name": "בן שמן", "rank": 8, "region": "מרכז", "location": "בן שמן", "type": "כפרי נוער", "count": 14, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "קומונה גדולה", "חיי קהילה", "פרויקטים"], "desc": "ליווי חיי פנימייה וקהילה, תמיכה אישית, פעילויות חברתיות וחינוכיות, פרויקטים ומשק חקלאי.", "check": "לבדוק באילו ענפים/קבוצות משובצים בפועל.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%9f-%d7%a9%d7%9e%d7%9f/", "dates": "24/12/2026-25/12/2026, 07/01/2027-08/01/2027", "top": true}, {"id": "ahava", "name": "אהבה", "rank": 9, "region": "צפון", "location": "כפר ביאליק", "type": "פנימיות", "count": 18, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משפחתונים", "אח גדול", "קומונה גדולה", "ללא משמעת"], "desc": "משפחתונים, קשר יומיומי, דמות בוגרת וחברית, תמיכה וליווי ללא דגש על משמעת. מודל מובהק של “אח/ות גדול/ה”.", "check": "לוודא לאיזה משפחתון משובצים ומה היחס בין ילדים לנוער.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%94%d7%91%d7%94/", "dates": "26/12/2025-27/12/2025, 09/01/2026-10/01/2026, 23/01/2026-24/01/2026, 06/02/2026-07/02/2026", "top": true}, {"id": "kaduri", "name": "כדורי", "rank": 10, "region": "צפון", "location": "גליל תחתון", "type": "כפרי נוער", "count": 12, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["עבודה פיזית", "דוגמה אישית", "חוגים", "אירועי תוכן"], "desc": "צוות פנימייה, ליווי קבוצה, חוגים, אירועי תוכן, נראות הכפר ועבודה יומיומית שמדגישה דוגמה אישית.", "check": "הרבה עבודה פיזית ויוזמה; מתאים למי שרוצה אינטנסיביות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%93%d7%95%d7%a8%d7%99/", "dates": "14/01/2027-16/01/2027", "top": true}, {"id": "kanot", "name": "כנות", "rank": 11, "region": "מרכז", "location": "צומת כנות", "type": "כפרי נוער", "count": 14, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק ופנימייה", "אח בוגר", "יוזמות", "אחריות"], "desc": "שילוב חזק בין פנימייה ומשק, דמות אח/ות בוגר/ת, יוזמות ופרויקטים, אחריות יום-יומית מול חניכים.", "check": "לבדוק באיזה ענף משק משתבצים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a0%d7%95%d7%aa/", "dates": "07/01/2027-08/01/2027, 08/01/2027-09/01/2027", "top": true}, {"id": "shvilim", "name": "שבילים", "rank": 12, "region": "השרון", "location": "עמק חפר / רופין", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["פוסט אשפוזי", "קשר רגשי", "פנימייה טיפולית", "משמעות"], "desc": "קשר אישי עמוק ותומך עם בני נוער בפנימייה טיפולית-פוסט אשפוזית. מתאים אם אתה רוצה משמעות וקשר רגשי חזק.", "check": "מסגרת טיפולית-פוסט אשפוזית; לבדוק התאמה רגשית.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a9%d7%91%d7%99%d7%9c%d7%99%d7%9d/", "dates": "01/01/2026, 15/01/2026", "top": true}, {"id": "tel-baruch", "name": "תל ברוך", "rank": 13, "region": "מרכז", "location": "תל אביב", "type": "פנימיות", "count": 14, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["תל אביב", "ליווי קבוצה", "ללא משמעת", "שגרת חיים"], "desc": "ליווי קבוצה לאורך היום, שיעורים, חוגים, ארוחות, ליווי חיצוני ושגרת חיים של ילדים ונוער בפנימייה.", "check": "ש״ש מסייע למדריכים ולא אחראי משמעתית; טוב לוודא גבולות תפקיד.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%aa%d7%9c-%d7%91%d7%a8%d7%95%d7%9a/", "dates": "08/01/2026, 15/01/2026, 22/01/2026", "top": true}, {"id": "achuzat-yeladim", "name": "אחוזת ילדים", "rank": 14, "region": "צפון", "location": "חיפה", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["טיפולית", "פוסט אשפוזית", "אח בוגר", "משברים"], "desc": "מודל אח בוגר, ליווי יום-יומי, חוגים, תרבות ועזרה ברגעי משבר.", "check": "מסגרת טיפולית ופוסט-אשפוזית; לבדוק עומס רגשי והדרכה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%97%d7%95%d7%96%d7%aa-%d7%99%d7%9c%d7%93%d7%99%d7%9d/", "dates": "07/01/2027, 14/01/2027", "top": false}, {"id": "beit-appel", "name": "בית אפל", "rank": 15, "region": "מרכז", "location": "גן יבנה", "type": "פנימיות", "count": 14, "fit": "לבדיקה", "fitLevel": "check", "tags": ["טיפולית", "ילדים ונוער"], "desc": "פנימייה טיפולית לילדים ונוער, אך בדף לא הופיע פירוט ברור של תפקיד הש״ש.", "check": "לשאול בדיוק מה עושים בשגרה ומה מידת הקשר עם חניכים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%90%d7%a4%d7%9c/", "dates": "07/01/2027, 04/02/2027", "top": false}, {"id": "beit-rut", "name": "בית רות", "rank": 16, "region": "צפון", "location": "עפולה", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["נערות בלבד", "אחות גדולה", "העצמה"], "desc": "קשר אישי מעצים, דמות “אחות גדולה”, שגרה מלאה עם הנערות ואירועים בכפר.", "check": "כפר לנערות; לבדוק התאמה אישית ומגדרית.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%a8%d7%95%d7%aa/", "dates": "08/01/2026-09/01/2026, 22/01/2026-23/01/2026, 05/02/2026-06/02/2026", "top": false}, {"id": "haoranim", "name": "האורנים", "rank": 17, "region": "מרכז", "location": "בין ראשל״צ לנס ציונה", "type": "פנימיות", "count": 15, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["פוסט אשפוזית", "קומונה גדולה", "אח בוגר", "בני נוער"], "desc": "דמות יציבה ואח בוגר, ליווי פעילויות בכפר, אחריות גבוהה מול בני נוער.", "check": "מסגרת פוסט-אשפוזית; לבדוק הדרכה וליווי רגשי לש״ש.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%90%d7%95%d7%a8%d7%a0%d7%99%d7%9d/", "dates": "08/01/2026-09/01/2026, 22/01/2026-23/01/2026", "top": false}, {"id": "beit-singer", "name": "הבית לילד - בית זינגר", "rank": 18, "region": "צפון", "location": "כפר יחזקאל", "type": "פנימיות", "count": 14, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["ילדים", "סדר יום פנימייתי", "צוות בוגר"], "desc": "ליווי ילדים לאורך היום, סדר יום פנימייתי, משחקים, שיחות ועבודה לצד צוות בוגר.", "check": "מסגרת מאתגרת; חשוב לשאול על גבולות תפקיד והדרכה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%91%d7%99%d7%aa-%d7%9c%d7%99%d7%9c%d7%93-%d7%91%d7%99%d7%aa-%d7%96%d7%99%d7%a0%d7%92%d7%a8/", "dates": "25/12/2025-26/12/2025, 08/01/2026-09/01/2026, 22/01/2026-23/01/2026", "top": false}, {"id": "wizo-nir-haemek", "name": "ויצ״ו ניר העמק", "rank": 19, "region": "צפון", "location": "עפולה", "type": "כפרי נוער", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק", "קבוצה", "כפר", "שבתות כפר"], "desc": "קבוצה, כפר ומשק: שיחות אישיות, פעילויות ערכיות, לימודים, שבתות וחוגים.", "check": "לבדוק טווח התאריכים באתר, כי הופיעו שנים לא עקביות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%a0%d7%99%d7%a8-%d7%94%d7%a2%d7%9e%d7%a7/", "dates": "07/01/2027-08/01/2027, 21/01/2027-22/01/2027", "top": false}, {"id": "tuvia", "name": "טוביה", "rank": 20, "region": "צפון", "location": "הרדוף", "type": "פנימיות", "count": 15, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["הרדוף", "אנתרופוסופיה", "ילדים ונוער", "קומונה גדולה"], "desc": "חלק מלא מהעבודה עם הילדים: שגרה, בית, פעילויות, תרבות, ישיבות צוות והדרכה.", "check": "יש הרבה ילדים צעירים לצד נוער; לבדוק אם זה מתאים לך.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%98%d7%95%d7%91%d7%99%d7%94/", "dates": "25/12/2025-27/12/2025, 08/01/2026-10/01/2026, 22/01/2026-24/01/2026", "top": false}, {"id": "tokayer", "name": "טוקאייר", "rank": 21, "region": "השרון", "location": "בחן", "type": "פנימיות", "count": 10, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["בנים בלבד", "אח גדול", "תרבות ופנאי"], "desc": "חלק משמעותי מצוות הקבוצה, עבודה ישירה, משימות בוקר, תרבות ופנאי, אח גדול.", "check": "מיועד לבנים בלבד לפי הדף; לבדוק אופי הקבוצה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%98%d7%95%d7%a7%d7%90%d7%99%d7%99%d7%a8/", "dates": "15/01/2026, 12/02/2026", "top": false}, {"id": "meir-shfeya", "name": "כפר הנוער מאיר שפיה", "rank": 22, "region": "צפון", "location": "ליד זיכרון יעקב", "type": "כפרי נוער", "count": 12, "fit": "הכי מתאים", "fitLevel": "best", "tags": ["משק חקלאי", "אקדמיות ספורט", "חוגים", "צוות בוגר"], "desc": "צוות בוגר בכפר, קבוצה, משק חקלאי, חוגים, ליווי אישי ואקדמיות ספורט.", "check": "פירוט רחב מאוד; לשאול מה בפועל השיבוץ היומי שלך.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9b%d7%a4%d7%a8-%d7%94%d7%a0%d7%95%d7%a2%d7%a8-%d7%9e%d7%90%d7%99%d7%a8-%d7%a9%d7%a4%d7%99%d7%94/", "dates": "21/01/2027-22/01/2027, 28/01/2027-29/01/2027", "top": false}, {"id": "mgadim", "name": "מגדים", "rank": 23, "region": "צפון", "location": "מגדל העמק", "type": "פנימיות", "count": 12, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["צוות בית", "משמרות ערב", "טיפוח הכפר"], "desc": "חלק מצוות בית, משמרות ערב, תרבות, פרויקטים, טיפוח הכפר וליווי אישי.", "check": "בדף לא הופיע איש קשר ברור; לבדוק דרך האתר.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%92%d7%93%d7%99%d7%9d/", "dates": "15/01/2026-16/01/2026, 29/01/2026-30/01/2026, 09/02/2026", "top": false}, {"id": "manof", "name": "מנוף", "rank": 24, "region": "צפון", "location": "עכו", "type": "כפרי נוער", "count": 16, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משק חקלאי", "קומונה גדולה", "נוער מורכב", "ביתנים"], "desc": "משק חקלאי, ליווי ביתנים, חונכות אישית, קשרים אישיים והפקת פרויקטים.", "check": "אוכלוסייה מרקע מורכב; לבדוק רמת אינטנסיביות והכשרה.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a0%d7%95%d7%a3/", "dates": "25/12/2025-26/12/2025, 01/01/2026-02/01/2026, 08/01/2026-09/01/2026", "top": false}, {"id": "neve-elisha", "name": "נווה אלישע", "rank": 25, "region": "השרון", "location": "גבעת עדה", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משפחתונים", "ילדים ונוער", "אירועי שיא"], "desc": "ש״ש במשפחתון, שיעורי בית, ליוויים, ישיבות, פעילויות כפריות ואירועי שיא.", "check": "יש ילדים צעירים לצד נוער; לבדוק שכבות גיל.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%90%d7%9c%d7%99%d7%a9%d7%a2/", "dates": "15/01/2026, 19/02/2026", "top": false}, {"id": "neve-hadar", "name": "נווה הדר", "rank": 26, "region": "השרון", "location": "חבצלת השרון", "type": "פנימיות", "count": 11, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משפחתונים", "טיפולית", "צוות הדרכה", "שבתות וחגים"], "desc": "משפחתונים, שייכות לצוות הדרכה, פעילויות העשרה, שבתות, חגים וטקסים.", "check": "פנימייה טיפולית; לבדוק תמיכה רגשית לש״ש.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a8/", "dates": "24/12/2026-25/12/2026, 07/01/2027-08/01/2027", "top": false}, {"id": "nirim-bamidbar", "name": "נירים במדבר", "rank": 27, "region": "צפון / שטח", "location": "בוסתן הגליל", "type": "פנימיות", "count": 12, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["מסעות שטח", "פעילות ימית", "חוסן פיזי", "אתגר"], "desc": "נוכחות בכל היום, חוגים, בית ספר, שיחות, משברים, פעילות ימית ומסעות שטח.", "check": "דורש חוסן פיזי ונפשי; מתאים למי שרוצה שטח ואתגר.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%99%d7%a8%d7%99%d7%9d-%d7%91%d7%9e%d7%93%d7%91%d7%a8/", "dates": "25/12/2025, 01/01/2026", "top": false}, {"id": "ayanot", "name": "עיינות", "rank": 28, "region": "מרכז", "location": "מ.א. גן רווה", "type": "כפרי נוער", "count": 14, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["משק חקלאי", "אח בוגר", "פנימייה", "אירועים"], "desc": "איש צוות ואח בוגר, פנימייה, משק חקלאי, פרויקטים, אירועים ושיחות ליווי.", "check": "לשאול מה חלוקת הזמן בין פנימייה למשק.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%99%d7%99%d7%a0%d7%95%d7%aa/", "dates": "08/01/2026-09/01/2026, 15/01/2026-16/01/2026", "top": false}, {"id": "olamim", "name": "עלומים", "rank": 29, "region": "מרכז", "location": "כפר סבא", "type": "פנימיות", "count": 10, "fit": "מתאים מאוד", "fitLevel": "high", "tags": ["דמות מיטיבה", "כפר סבא", "שותפות בצוות", "גבולות"], "desc": "דמות מיטיבה, שותפות בצוות, הקשבה, משחק, השכבה, גבולות ופעילויות קומונה.", "check": "עבודה קשה ומסורה; לבדוק גבולות אחריות.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a2%d7%9c%d7%95%d7%9e%d7%99%d7%9d/", "dates": "31/12/2026-01/01/2027, 14/01/2027-15/01/2027, 28/01/2027-29/01/2027", "top": false}, {"id": "renanim", "name": "רננים", "rank": 30, "region": "צפון", "location": "זיכרון יעקב", "type": "פנימיות", "count": 10, "fit": "לבדיקה", "fitLevel": "check", "tags": ["חינוכי", "זיכרון יעקב", "קשר חניכים"], "desc": "בדף נכתב שהתפקיד חינוכי ושווה בצוות ההדרכה, אך הפירוט קצר מאוד.", "check": "לשאול מה סדר היום ומה מידת העבודה הישירה עם חניכים.", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a8%d7%a0%d7%a0%d7%99%d7%9d/", "dates": "29/01/2026", "top": false}];
+    const EXCLUDED = [{"name": "אלוני יצחק", "region": "מרכז", "location": "גבעת עדה", "type": "כפרי נוער", "count": 18, "reason": "אתה חניך שם (בית הספר שלך שבו אתה לומד כיום), ולכן אי אפשר לבחור את המסגרת הזאת לשנת שירות.", "badge": "בית הספר שלך", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%9c%d7%95%d7%a0%d7%99-%d7%99%d7%a6%d7%97%d7%a7/"}, {"name": "אודם", "region": "צפון", "location": "קצרין", "type": "כפרי נוער", "count": 5, "reason": "מתחת למינימום: פחות מ-10 ש״שינים (רק 5 ש״שינים בקומונה).", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%90%d7%95%d7%93%d7%9d/"}, {"name": "בית הילד", "region": "מרכז", "location": "תל אביב", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%94%d7%99%d7%9c%d7%93/"}, {"name": "בית טף", "region": "צפון", "location": "פרדס חנה", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%91%d7%99%d7%aa-%d7%98%d7%a3/"}, {"name": "דארנא", "region": "השרון", "location": "מכללת רופין, עמק חפר", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%93%d7%90%d7%a8%d7%a0%d7%90/"}, {"name": "דרך גבת", "region": "צפון", "location": "קיבוץ גבת", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%93%d7%a8%d7%9a-%d7%92%d7%91%d7%aa/"}, {"name": "המחלקה לילדים ונוער בסיכון", "region": "צפון", "location": "גליל מערבי", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%9e%d7%97%d7%9c%d7%a7%d7%94-%d7%9c%d7%99%d7%9c%d7%93%d7%99%d7%9d-%d7%95%d7%a0%d7%95%d7%a2%d7%a8-%d7%91%d7%a1%d7%99%d7%9b%d7%95%d7%9f/"}, {"name": "הפרדס", "region": "צפון", "location": "פרדס חנה", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%94%d7%a4%d7%a8%d7%93%d7%a1/"}, {"name": "ויצ״ו גן ונוף", "region": "מרכז", "location": "פתח תקווה", "type": "כפרי נוער", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%92%d7%9f-%d7%95%d7%a0%d7%95%d7%a3/"}, {"name": "ויצ״ו נהלל", "region": "צפון", "location": "כפר הנוער ויצ״ו נהלל", "type": "כפרי נוער", "count": 9, "reason": "מתחת למינימום: רק 9 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%95%d7%99%d7%a6%d7%95-%d7%a0%d7%94%d7%9c%d7%9c/"}, {"name": "מבואות עירון", "region": "מרכז", "location": "עין שמר", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%91%d7%95%d7%90%d7%95%aa-%d7%a2%d7%99%d7%a8%d7%95%d7%9f/"}, {"name": "מוסד חינוכי שומריה", "region": "צפון", "location": "משמר העמק", "type": "פנימיות", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%95%d7%a1%d7%93-%d7%97%d7%99%d7%a0%d7%95%d7%9b%d7%99-%d7%a9%d7%95%d7%9e%d7%a8%d7%99%d7%94/"}, {"name": "מלכישוע", "region": "צפון", "location": "פסגת הר הגלבוע", "type": "כפרי נוער", "count": 9, "reason": "מתחת למינימום: רק 9 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%9c%d7%9b%d7%99%d7%a9%d7%95%d7%a2/"}, {"name": "מקוה ישראל", "region": "מרכז", "location": "חולון", "type": "כפרי נוער", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a7%d7%95%d7%94-%d7%99%d7%a9%d7%a8%d7%90%d7%9c/"}, {"name": "מקווה ישראל משק", "region": "מרכז", "location": "חולון", "type": "כפרי נוער", "count": 8, "reason": "מתחת למינימום: רק 8 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a7%d7%95%d7%95%d7%94-%d7%99%d7%a9%d7%a8%d7%90%d7%9c-%d7%9e%d7%a9%d7%a7/"}, {"name": "מרכז חירום אהבה", "region": "צפון", "location": "כפר ביאליק", "type": "פנימיות", "count": 9, "reason": "מתחת למינימום: רק 9 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%9e%d7%a8%d7%9b%d7%96-%d7%97%d7%99%d7%a8%d7%95%d7%9d-%d7%90%d7%94%d7%91%d7%94/"}, {"name": "נווה הדסה - קומונת משק", "region": "השרון", "location": "נווה הדסה", "type": "כפרי נוער", "count": 4, "reason": "מתחת למינימום: רק 4 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a0%d7%95%d7%95%d7%94-%d7%94%d7%93%d7%a1%d7%94-%d7%a7%d7%95%d7%9e%d7%95%d7%a0%d7%aa-%d7%9e%d7%a9%d7%a7/"}, {"name": "רבדים", "region": "השרון", "location": "נתניה", "type": "פנימיות", "count": 6, "reason": "מתחת למינימום: רק 6 ש״שינים בקומונה.", "badge": "מתחת ל-10", "link": "https://www.sherut-kibbutz.com/voluntary/%d7%a8%d7%91%d7%93%d7%99%d7%9d/"}];
     const QUESTIONS = [{"q": "לאיזו קבוצת גיל משובצים?", "tip": "חשוב להבין אם העבודה היא מול חטיבה צעירה, תיכון, נעל״ה או משפחתונים רב-גילאיים כדי להתאים לסגנון האישי שלך."}, {"q": "כמה שעות ביום נמצאים ישירות עם החניכים?", "tip": "וודא שרוב היום מוקדש למפגש אנושי וחברתי ולא רק למשימות לוגיסטיות, תורנויות או מנהלה."}, {"q": "האם הש״ש עוסק במשמעת או בדמות מלווה ואח גדול בלבד?", "tip": "המפתח לש״ש משמעותי הוא להיות אח בוגר ומודל לחיקוי. אם הש״ש נתפס כשוטר משמעת, הקשר עם החניכים נשחק."}, {"q": "כמה הדרכה וליווי רגשי שבועי מקבלים?", "tip": "עבודה בפנימיות ובכפרי נוער מציפה רגשות. בדוק אם יש עובדת סוציאלית או מדריך מלווה לשיחה שבועית קבועה."}, {"q": "כמה עבודה חקלאית / פיזית יש במשק?", "tip": "במקומות עם משק חקלאי, שאל האם העבודה היא יומיומית, האם עובדים יחד עם החניכים, וכמה שעות בוקר זה דורש."}, {"q": "מה סדר היום בשבתות, חגים וסופי שבוע?", "tip": "שבתות כפר הן החוויה הכי מגבשת. ברר כמה שבתות סוגרים בחודש ואיך נראית פעילות השבת עם החניכים."}, {"q": "כמה מקום יש ליוזמות אישיות, חוגים ופרויקטים?", "tip": "שאל האם תוכל לפתוח חוג בתחום שאתה אוהב (מוזיקה, מחשבים, ספורט, יצירה) ולהשאיר חותם אישי בכפר."}, {"q": "האם הש״ש מוכר כחלק מלא מצוות ההדרכה והישיבות?", "tip": "חיוני לדעת שמשתפים את הש״ש בישיבות צוות, בשיקולים החינוכיים ובקבלת ההחלטות על החניכים."}];
 
     let currentFilter = 'all';
@@ -3265,6 +3479,7 @@
       container.scrollTop = container.scrollHeight;
 
       let answer = null;
+      let fromAI = false;
 
       try {
         let response = null;
@@ -3286,6 +3501,7 @@
           const data = await response.json();
           if (data && data.reply) {
             answer = data.reply;
+            fromAI = true;
           }
         }
       } catch (err) {
@@ -3300,120 +3516,174 @@
       if (loading) loading.remove();
 
       appendChatMessage(answer, 'bot');
-      chatHistory.push({ role: 'user', text: text });
-      chatHistory.push({ role: 'model', text: answer });
+      // תשובת גיבוי מקומית לא נשמרת בהיסטוריה, כדי שהמודל לא ישתמש בה כהקשר
+      if (fromAI) {
+        chatHistory.push({ role: 'user', text: text });
+        chatHistory.push({ role: 'model', text: answer });
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // מרנדר Markdown קל (הדגשה, רשימות, קישורים) בצורה בטוחה: הטקסט מוברח לפני ההמרה
+    function renderChatText(text) {
+      let html = escapeHtml(text);
+      html = html.replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--brand);text-decoration:underline;font-weight:600">$1</a>');
+      html = html.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/(^|[\s(])\*([^*\s][^*\n]*?)\*(?=[\s.,;:!?)]|$)/g, '$1<em>$2</em>');
+      html = html.replace(/^\s*[-•]\s+/gm, '• ');
+      return html.replace(/\n/g, '<br>');
     }
 
     function appendChatMessage(text, sender) {
       const container = document.getElementById('popupMessages');
       const msgDiv = document.createElement('div');
       msgDiv.className = `msg-bubble ${sender}`;
-
-      const formatted = text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/\n/g, '<br>');
-
-      msgDiv.innerHTML = formatted;
+      msgDiv.innerHTML = sender === 'user' ? escapeHtml(text) : renderChatText(text);
       container.appendChild(msgDiv);
       container.scrollTop = container.scrollHeight;
     }
 
+    /* ---------- מוח מקומי (גיבוי כשהשרת לא זמין): עונה רק מהנתונים שבדף ---------- */
+
+    const ALL_PLACES = [
+      ...SUITABLE.map(p => ({ ...p, status: p.top ? 'top' : 'suitable' })),
+      ...EXCLUDED.map(p => ({ ...p, status: 'excluded' }))
+    ];
+
+    function normText(s) {
+      return (s || '').toLowerCase().replace(/[״"'׳`”“]/g, '').replace(/[-–־]/g, ' ').replace(/[?!.,:;()]/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function findPlaces(query) {
+      const q = ' ' + normText(query) + ' ';
+      const esc = c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const hits = ALL_PLACES.filter(p => {
+        const full = normText(p.name);
+        const short = normText(p.name.replace(/^(ויצ״ו|כפר הנוער|הבית לילד -|מוסד חינוכי)\s*/, ''));
+        return [full, short].filter(c => c.length >= 3)
+          .some(c => new RegExp(`(^|\\s)[בלמוהשכ]?${esc(c)}(\\s|$)`).test(q));
+      });
+      return hits.filter(a => !hits.some(b => b !== a && normText(b.name).length > normText(a.name).length
+        && normText(b.name).includes(normText(a.name)) && q.includes(normText(b.name))));
+    }
+
+    function parseDMY(s) {
+      const m = /(\d\d)\/(\d\d)\/(\d{4})/.exec(s);
+      return m ? new Date(+m[3], +m[2] - 1, +m[1]) : null;
+    }
+
+    function upcomingDates(p) {
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const items = (p.dates || '').split(',').map(s => s.trim()).filter(Boolean);
+      return { all: items, upcoming: items.filter(it => { const e = parseDMY(it.split('-').pop()); return e && e >= today; }) };
+    }
+
+    function datesLine(p) {
+      const d = upcomingDates(p);
+      if (!d.all.length) return 'לא פורסמו מועדים באתר התק״מ';
+      if (d.upcoming.length) return d.upcoming.join(', ');
+      return `${d.all.join(', ')} (כל המועדים שפורסמו כבר עברו, כדאי לבדוק בדף הרשמי)`;
+    }
+
+    function placeCard(p) {
+      if (p.status === 'excluded') {
+        return `**${p.name}** לא נכלל (${p.type}, ${p.location}, ${p.count} ש״שינים).\n${p.reason}\n[עמוד בתק״מ](${p.link})`;
+      }
+      return `**${p.name}** (${p.type}, ${p.location} · ${p.region}), **${p.count} ש״שינים** · ${p.fit}\n` +
+        `- **תפקיד בשגרה:** ${p.desc}\n` +
+        `- **דגש לבדיקה:** ${p.check}\n` +
+        `- **כנסים:** ${datesLine(p)}\n` +
+        `[עמוד בתק״מ](${p.link})`;
+    }
+
+    function comparePlaces(a, b) {
+      const row = (label, x, y) => `- **${label}:** ${x} מול ${y}`;
+      return `**השוואה: ${a.name} מול ${b.name}**\n` +
+        row('קומונה', `${a.count} ש״שינים`, `${b.count} ש״שינים`) + '\n' +
+        row('אזור', `${a.region} (${a.location})`, `${b.region} (${b.location})`) + '\n' +
+        row('סוג', a.type, b.type) + '\n' +
+        (a.desc && b.desc ? row('תפקיד', a.desc, b.desc) + '\n' : '') +
+        (a.check && b.check ? row('כדאי לבדוק', a.check, b.check) + '\n' : '') +
+        `\nלפי הקריטריונים שלך (קומונה גדולה, אח בוגר, משק/קשר רגשי) ${a.count >= b.count ? a.name : b.name} מובילה בגודל הקומונה; הכרעה סופית תלויה באופי שאתה מחפש ובמה שתשמע בכנס.`;
+    }
+
+    function listPlaces(list, limit = 12) {
+      return list.slice(0, limit).map(p => `- **${p.name}** (${p.location}, ${p.count})`).join('\n');
+    }
+
     function getLocalSmartAnswer(query) {
-      const q = query.trim().toLowerCase();
+      const q = normText(query);
+      const has = (...w) => w.some(x => q.includes(normText(x)));
+      const suitable = ALL_PLACES.filter(p => p.status !== 'excluded');
+      const places = findPlaces(query);
 
-      for (const p of SUITABLE) {
-        const cleanName = p.name.toLowerCase().replace('כפר הנוער', '').replace('ויצ״ו', '').trim();
-        if (q.includes(p.name.toLowerCase()) || q.includes(cleanName)) {
-          return `📍 <strong>${p.name}</strong> (${p.type}, ${p.location} - ${p.region}):<br><br>
-                  • <strong>גודל קומונה:</strong> ${p.count} ש״שינים (${p.fit}).<br>
-                  • <strong>תפקיד בשגרה:</strong> ${p.desc}<br>
-                  • <strong>דגש לבדיקה:</strong> ${p.check}<br>
-                  • <strong>מועדי כנסים:</strong> ${p.dates}<br><br>
-                  <a href="${p.link}" target="_blank" style="color: #0071e3; text-decoration: underline;">עמוד המסגרת בתק״מ ↗</a>`;
+      if (places.length >= 2) return comparePlaces(places[0], places[1]);
+
+      if (places.length === 1) {
+        const p = places[0];
+        if (has('כנס', 'מועד', 'מתי', 'תאריך') && p.status !== 'excluded') {
+          return `**כנסי ההתמיינות של ${p.name}:**\n${datesLine(p)}\n\nהתאריכים כפי שמופיעים באתר התק״מ, כדאי לוודא בדף הרשמי.\n[עמוד בתק״מ](${p.link})`;
         }
+        return placeCard(p);
       }
 
-      for (const ex of EXCLUDED) {
-        if (q.includes(ex.name.toLowerCase()) || (ex.name.includes('אלוני') && q.includes('אלוני'))) {
-          if (ex.name.includes('אלוני יצחק')) {
-            return `⚠️ <strong>אלוני יצחק נפסל:</strong><br><br>
-                    אתה לומד וחניך שם כיום (זהו בית הספר שלך), ולכן על פי הכללים אי אפשר לבצע שם ש״ש.<br><br>
-                    <strong>חלופות מובילות שדומות לו באופי:</strong> הכפר הירוק, ויצ״ו הדסים, נווה הדסה או כפר גלים.`;
-          } else {
-            return `❌ <strong>${ex.name} לא נכלל:</strong><br><br>
-                    ${ex.reason}<br>
-                    הסינון שלך הגדיר מינימום 10 ש״שינים בקומונה, וב${ex.name} יש רק ${ex.count} ש״שינים.`;
-          }
-        }
+      if (has('למה נפסל', 'פסול', 'שלא נכלל', 'לא נכללו')) {
+        return `**18 מסגרות לא נכללו:**\n- **אלוני יצחק:** אתה לומד שם כיום כחניך, ולכן אי אפשר לעשות שם ש״ש.\n- **17 נוספות:** קומונה קטנה מ-10 ש״שינים (4 עד 9).\n\nשאל אותי על מסגרת מסוימת ואסביר מה המצב שלה.`;
       }
 
-      if (q.includes('למה נפסל') || q.includes('פסול') || q.includes('שלא נכלל')) {
-        return `🔍 <strong>למה 18 מסגרות נפסלו?</strong><br><br>
-                1. <strong>אלוני יצחק:</strong> נפסל כי אתה לומד שם כיום כחניך (בית הספר שלך).<br>
-                2. <strong>17 מסגרות נוספות:</strong> נפסלו עקב קומונה קטנה מ-10 ש״שינים (4 עד 9 בלבד).`;
+      if (has('כנס', 'מועד', 'מתי', 'תאריכים', 'קרוב')) {
+        const withUpcoming = suitable.map(p => ({ p, d: upcomingDates(p).upcoming })).filter(x => x.d.length)
+          .sort((a, b) => parseDMY(a.d[0].split('-')[0]) - parseDMY(b.d[0].split('-')[0]));
+        if (!withUpcoming.length) return 'כל מועדי הכנסים שפורסמו באתר התק״מ למסגרות שלך כבר עברו. כדאי לבדוק בלוח הכנסים באתר אם נוספו מועדים חדשים.';
+        return `**הכנסים הקרובים לפי האתר:**\n` + withUpcoming.slice(0, 10).map(x => `- **${x.p.name}:** ${x.d.join(', ')}`).join('\n') +
+          `\n\nכדאי לוודא תאריכים סופיים בדף הרשמי של כל מסגרת.`;
       }
 
-      if (q.includes('הירוק') && (q.includes('הדסים') || q.includes('השוו'))) {
-        return `📊 <strong>השוואה בין הכפר הירוק לויצ״ו הדסים:</strong><br><br>
-                • <strong>גודל קומונה:</strong> הכפר הירוק (21 ש״שינים) מול הדסים (10 ש״שינים).<br>
-                • <strong>אזור:</strong> הכפר הירוק (מרכז - רמת השרון) מול הדסים (השרון - אבן יהודה).<br>
-                • <strong>משק חקלאי:</strong> בשניהם יש משק חקלאי פעיל ומפותח.<br>
-                • <strong>אופי:</strong> הכפר הירוק הוא מסגרת ענקית רב-תרבותית (כולל EMIS), בעוד שהדסים מציע אווירה כפרית ואינטימית יותר.`;
+      const wantsInternat = has('פנימיות', 'פנימייה');
+      const wantsKfar = has('כפרי נוער', 'כפר נוער');
+      const typeFilter = p => (!wantsInternat && !wantsKfar) || (wantsInternat && p.type === 'פנימיות') || (wantsKfar && p.type === 'כפרי נוער');
+      const region = has('צפון') ? 'צפון' : has('שרון') ? 'השרון' : has('מרכז') ? 'מרכז' : null;
+      const farm = has('משק', 'חקלא');
+      const big = has('גדולה', 'הכי הרבה', 'הכי גדול');
+
+      if (region || farm || wantsInternat || wantsKfar || big) {
+        let list = suitable.filter(typeFilter);
+        if (region) list = list.filter(p => p.region.includes(region));
+        if (farm) list = list.filter(p => (p.tags || []).some(t => t.includes('משק') || t.includes('חקלא')) || p.desc.includes('משק'));
+        if (big) list = list.filter(p => p.count >= 14);
+        list = list.sort((a, b) => b.count - a.count);
+        const label = [wantsInternat ? 'פנימיות' : wantsKfar ? 'כפרי נוער' : 'מסגרות', region ? `ב${region}` : '', farm ? 'עם משק חקלאי' : ''].filter(Boolean).join(' ');
+        if (!list.length) return 'לא מצאתי מסגרות שמתאימות לסינון הזה ברשימה שלך. נסה לשנות אחד הפרמטרים.';
+        return `**${label} (${list.length}), לפי גודל הקומונה:**\n${listPlaces(list)}${list.length > 12 ? `\n…ועוד ${list.length - 12}` : ''}`;
       }
 
-      if (q.includes('3') || q.includes('מומלץ') || q.includes('הכי טוב') || q.includes('לפתוח קודם')) {
-        return `⭐ <strong>שלושת המסגרות המובילות שכדאי לפתוח קודם:</strong><br><br>
-                1. <strong>הכפר הירוק</strong> - 21 ש״שינים, פנימייה, משפחתונים, משק חקלאי ו-EMIS.<br>
-                2. <strong>ויצ״ו הדסים</strong> - 10 ש״שינים, אח בוגר, משק חקלאי ושבתות כפר.<br>
-                3. <strong>כפר גלים</strong> - 16 ש״שינים בחוף הכרמל, משק חקלאי, קבוצות נעל״ה ויוזמות.`;
+      if (has('מומלצ', 'המלצה', 'הכי טוב', 'הכי מתאים', 'לפתוח קודם', 'המובילים', 'תמליץ')) {
+        const top = SUITABLE.filter(p => p.top).slice(0, 3);
+        return `**שלוש המסגרות שהכי כדאי לפתוח קודם:**\n` + top.map((p, i) => `${i + 1}. **${p.name}:** ${p.count} ש״שינים. ${p.desc}`).join('\n') +
+          `\n\nרוצה השוואה ביניהן או שאלות לכנס?`;
       }
 
-      if (q.includes('משק') || q.includes('חקלא')) {
-        return `🌱 <strong>מסגרות בולטות עם משק חקלאי פעיל:</strong><br><br>
-                הכפר הירוק (21), כפר גלים (16), בן שמן (15), כנות (14), עיינות (14), כדורי (12), נווה הדסה (10) וויצ״ו הדסים (10).`;
+      if (has('ראיון', 'מיונים', 'מה לשאול', 'לשאול', 'להתכונן', 'הכנה')) {
+        return `**שאלות מפתח לכנס ולמיונים:**\n` + QUESTIONS.slice(0, 5).map((x, i) => `${i + 1}. **${x.q}**\n   ${x.tip}`).join('\n');
       }
 
-      if (q.includes('שרון')) {
-        return `📍 <strong>מסגרות מובילות באזור השרון:</strong><br><br>
-                ויצ״ו הדסים (אבן יהודה), מוסינזון (הוד השרון), נווה הדסה (תל יצחק), שבילים (עמק חפר / רופין), טוקאייר (בחן), נווה אלישע (גבעת עדה) ונווה הדר (חבצלת השרון).`;
+      if (has('אינסטגרם', 'אינסטה', 'instagram', 'רשתות')) {
+        return `**אינסטגרם של קומונות:**\nלרוב הקומונות יש עמוד שמנוהל על ידי הש״שינים הנוכחיים. חפש "קומונת [שם המקום]" או "ש״ש [שם המקום]" ושלח הודעה פרטית: ש״שינים בדרך כלל שמחים לספר איך זה באמת.`;
       }
 
-      if (q.includes('צפון')) {
-        return `📍 <strong>מסגרות מובילות באזור הצפון:</strong><br><br>
-                כפר גלים (חוף הכרמל), נירים (בוסתן הגליל), אהבה (כפר ביאליק), כדורי (גליל תחתון), מאיר שפיה (זיכרון יעקב), מנוף (עכו) וטוביה (הרדוף).`;
+      if (has('מתכון', 'שיעורי בית', 'קוד', 'תכנות')) {
+        return 'אני כאן בשביל שנת השירות 😉 על איזה כפר נוער, פנימייה או כנס תרצה לשמוע?';
       }
 
-      if (q.includes('מרכז')) {
-        return `📍 <strong>מסגרות מובילות באזור המרכז:</strong><br><br>
-                הכפר הירוק (רמת השרון), עתיד רזיאל (הרצליה), בן שמן, כנות, תל ברוך (תל אביב), בית אפל (גן יבנה) ועיינות (גן רווה).`;
+      if (has('שלום', 'היי', 'בוקר טוב', 'ערב טוב', 'מה נשמע')) {
+        return 'שלום יהלי! אפשר לשאול אותי על כל מסגרת, להשוות בין שתיים, לבקש המלצה לפי אזור או סוג, או לברר מתי הכנסים.';
       }
 
-      if (q.includes('ראיון') || q.includes('כנס') || q.includes('מיונים') || q.includes('מה לשאול')) {
-        return `💡 <strong>דגשים קריטיים לראיון ולכנסים:</strong><br><br>
-                1. <strong>הגדרת התפקיד:</strong> וודא שאתה אח בוגר ומלווה, ולא שוטר משמעת או אחראי ענישה.<br>
-                2. <strong>שכבת גיל:</strong> בדוק לאיזו קבוצה משובצים (חטיבה, תיכון, נעל״ה או משפחתונים).<br>
-                3. <strong>ליווי רגשי:</strong> שאל כמה שעות הדרכה וליווי מקבלים בשבוע מהעו״ס ומצוות הכפר.`;
-      }
-
-      if (q.includes('אינסטגרם') || q.includes('אינסטה') || q.includes('instagram') || q.includes('רשתות')) {
-        return `📸 <strong>אינסטגרם של קומונות וכפרי נוער:</strong><br><br>
-                לרוב הגדול של הקומונות יש עמוד אינסטגרם פעיל שמופעל ישירות על ידי הש״שינים הנוכחיים!<br><br>
-                כדי למצוא אותם, חפש באינסטגרם:<br>
-                • <strong>"קומונת [שם הכפר]"</strong> (למשל: <em>קומונת הדסים</em>, <em>קומונת הכפר הירוק</em>, <em>קומונת כפר גלים</em>)<br>
-                • <strong>"ש״ש [שם הכפר]"</strong><br><br>
-                💡 <em>טיפ:</em> שלח להם הודעה בפרטי (DM) – ש״שינים תמיד שמחים לענות על שאלות, לספר על האווירה האמיתית בקומונה ולתת טיפים למיונים!`;
-      }
-
-      if (q.includes('מתכון') || q.includes('שיעורי בית') || q.includes('קוד') || q.includes('תכנות')) {
-        return `אני ש״ש-בוט AI – המומחיות שלי היא ליווי והכוונה לשנות שירות בתק״מ, פנימיות וכפרי נוער 😉.<br><br>בוא נתמקד במטרה: על איזה כפר נוער, פנימייה או כנס תרצה לשמוע?`;
-      }
-
-      if (q.includes('שלום') || q.includes('היי') || q.includes('בוקר טוב') || q.includes('ערב טוב') || q.includes('wesd') || q.includes('test')) {
-        return `שלום יהלי! אני כאן לרשותך. תוכל לשאול על כל כפר נוער או פנימייה בתק״מ, לבקש השוואה, או לברר מועדי כנסים.`;
-      }
-
-      return `אני מכיר את כל 48 מסגרות התק״מ. תוכל לשאול על מקום מסוים (למשל "הכפר הירוק", "הדסים", "אהבה"), על אזור ("מה יש בשרון?"), או לבקש השוואה.`;
+      return 'לא הבנתי עד הסוף 🙂 נסה למשל: "ספר לי על נירים", "השווה בין אהבה לטוביה", "פנימיות בצפון", "איפה יש משק חקלאי" או "מתי הכנסים הקרובים?".';
     }
   </script>
 </body>
